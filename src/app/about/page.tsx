@@ -123,9 +123,16 @@ export default function AboutPage() {
               <h3 className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-accent">
                 {group.category}
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-foreground/90 text-pretty font-medium">
-                {group.items.join(" · ")}
-              </p>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {group.items.map((item) => (
+                  <li
+                    key={item}
+                    className="rounded-md border border-border/70 bg-subtle/40 px-2.5 py-1 text-xs font-medium leading-snug text-foreground/90"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
