@@ -51,14 +51,6 @@ export default function AboutPage() {
           >
             {links.resumePdf ? "Download resume" : "Resume on request"}
           </a>
-          <a
-            href={links.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-md border border-border-strong px-4 py-2 text-sm font-medium transition-colors hover:bg-subtle"
-          >
-            GitHub
-          </a>
           {links.linkedin ? (
             <a
               href={links.linkedin}

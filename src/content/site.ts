@@ -27,7 +27,6 @@ export const nav: NavItem[] = [
   { label: "Standards", href: "/#standards" },
   { label: "About", href: "/about" },
   { label: "Resume", href: resumeRequestHref, external: true },
-  { label: "GitHub", href: links.github, external: true },
   { label: "LinkedIn", href: links.linkedin!, external: true },
 ];
 
@@ -40,7 +39,6 @@ export const heroCopy = {
     "My background spans operations, process design, and hands-on AI implementation across finance and non-finance domains. Finance is one domain I know deeply; the pattern is broader: agents that do real work with evidence, controls, and clear human boundaries.",
   primaryCta: { label: "View Selected Work", href: "/#work" },
   secondaryCta: { label: "About Me", href: "/about" },
-  tertiaryCta: { label: "GitHub", href: links.github },
 } as const;
 
 /** Homepage proof strip — near top, below hero. */
@@ -117,7 +115,7 @@ export const howIBuild = {
 
 export const footerCopy = {
   prompt: "Interested in working together, or just want to talk shop?",
-  contactNote: "Reach me by email, LinkedIn, or GitHub — whichever is easiest.",
+  contactNote: "Reach me by email or LinkedIn — whichever is easiest.",
   disclaimer:
     "All project descriptions reflect actual design and implementation work — no metrics on this site are estimated or fabricated. Internet-Drafts listed here are not approved IETF standards.",
 } as const;

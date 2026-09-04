@@ -38,14 +38,6 @@ export function Hero() {
         >
           {heroCopy.secondaryCta.label}
         </Link>
-        <a
-          href={heroCopy.tertiaryCta.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 text-sm font-medium text-muted underline-offset-4 transition-colors hover:text-foreground hover:underline"
-        >
-          {heroCopy.tertiaryCta.label} <ArrowRight size={13} aria-hidden="true" />
-        </a>
       </div>
     </section>
   );
