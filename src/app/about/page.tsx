@@ -6,12 +6,12 @@ import { aboutCopy, links, technology } from "@/content/site";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Ben Stone's background in finance and operations, and how it shapes the way he designs and builds agentic AI systems.",
+    "Ben Stone — AI Automation & Agentic Systems Leader. Background in operations and hands-on AI implementation across agentic commerce, verification, and enterprise AI operations.",
   alternates: { canonical: "/about" },
   openGraph: {
     title: "About | Ben Stone",
     description:
-      "Ben Stone's background in finance and operations, and how it shapes the way he designs and builds agentic AI systems.",
+      "Ben Stone — AI Automation & Agentic Systems Leader. Operations background and hands-on agentic systems work.",
     url: "/about",
     type: "profile",
   },
@@ -43,22 +43,54 @@ export default function AboutPage() {
 
         <div className="mt-10 flex flex-wrap gap-3">
           <a
-            href={links.resume}
+            href="#resume"
             className="rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
           >
-            Download Resume
+            Resume on request
           </a>
           <a
-            href={`mailto:${links.email}`}
+            href={links.github}
+            target="_blank"
+            rel="noopener noreferrer"
             className="rounded-md border border-border-strong px-4 py-2 text-sm font-medium transition-colors hover:bg-subtle"
           >
-            Email Ben
+            GitHub
           </a>
+          {links.email ? (
+            <a
+              href={`mailto:${links.email}`}
+              className="rounded-md border border-border-strong px-4 py-2 text-sm font-medium transition-colors hover:bg-subtle"
+            >
+              Email Ben
+            </a>
+          ) : null}
         </div>
       </div>
 
       <Bridge />
       <Principles />
+
+      <section id="resume" className="scroll-mt-16 border-t border-border">
+        <div className="mx-auto max-w-3xl px-6 py-14 sm:py-16">
+          <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent-strong">
+            {aboutCopy.resume.heading}
+          </p>
+          <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
+            Available on request
+          </h2>
+          <p className="mt-4 text-[1.05rem] leading-relaxed text-foreground/90 text-pretty">
+            {aboutCopy.resume.body}
+          </p>
+          <a
+            href={aboutCopy.resume.ctaHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-flex rounded-md border border-border-strong px-4 py-2 text-sm font-medium transition-colors hover:bg-subtle"
+          >
+            {aboutCopy.resume.ctaLabel}
+          </a>
+        </div>
+      </section>
 
       <section className="mx-auto max-w-3xl px-6 py-14 sm:py-16">
         <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent-strong">Technology</p>

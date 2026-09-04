@@ -14,7 +14,7 @@ export default function NotFound() {
         This route wasn&apos;t mapped.
       </h1>
       <p className="mt-4 max-w-md text-base leading-relaxed text-muted text-pretty">
-        The page you were looking for doesn't exist, or the link is out of date. Here are a couple of
+        The page you were looking for doesn&apos;t exist, or the link is out of date. Here are a couple of
         places that definitely do exist.
       </p>
 

@@ -6,6 +6,15 @@ import {
   ArchitectureNode,
 } from "./primitives";
 
+const PIPELINE = [
+  "Discovery",
+  "Engagement",
+  "Execution",
+  "Verification",
+  "Settlement",
+  "Reputation",
+] as const;
+
 const VERIFICATION_STEPS = [
   "Evidence collection",
   "Claim validation",
@@ -16,17 +25,27 @@ const VERIFICATION_STEPS = [
 
 export function SwarmSyncDiagram() {
   return (
-    <ArchitectureFlow ariaLabel="SwarmSync architecture: an orchestrator directs agent execution against tools and APIs, execution evidence is collected, the SwarmSync verification layer checks claims against that evidence, and the result is either a verified result or an exception routed to human review.">
-      <ArchitectureNode kind="source" label="User / orchestrator" />
+    <ArchitectureFlow ariaLabel="SwarmSync autonomous agent commerce and trust pipeline: discovery through engagement, execution, verification layer, settlement, and reputation, with verification as one layer in the stack.">
+      <ArchitectureGroup title="Commerce & trust pipeline" kind="process">
+        {PIPELINE.map((step) => (
+          <ArchitectureChip key={step} label={step} kind="process" />
+        ))}
+      </ArchitectureGroup>
+
       <ArchitectureArrow />
+
       <ArchitectureNode kind="agent" label="Agent execution" />
       <ArchitectureArrow />
       <ArchitectureNode kind="process" label="Tools / APIs / systems" />
       <ArchitectureArrow />
-      <ArchitectureNode kind="process" label="Execution evidence" sublabel="What actually happened, not what the agent says happened" />
+      <ArchitectureNode
+        kind="process"
+        label="Execution evidence"
+        sublabel="What actually happened, not what the agent says happened"
+      />
       <ArchitectureArrow />
 
-      <ArchitectureGroup title="SwarmSync verification layer" kind="verify">
+      <ArchitectureGroup title="Verification layer (one slice of SwarmSync)" kind="verify">
         {VERIFICATION_STEPS.map((s) => (
           <ArchitectureChip key={s} label={s} kind="verify" />
         ))}
@@ -34,8 +53,9 @@ export function SwarmSyncDiagram() {
 
       <ArchitectureArrow />
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        <ArchitectureNode kind="output" label="Verified result" />
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+        <ArchitectureNode kind="output" label="Settlement path" />
+        <ArchitectureNode kind="output" label="Reputation (SwarmScore)" />
         <ArchitectureNode kind="exception" label="Exception / human review" />
       </div>
     </ArchitectureFlow>

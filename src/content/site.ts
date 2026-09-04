@@ -1,58 +1,61 @@
 /**
- * Central source of truth for site-wide config: URLs, navigation,
- * contact links, and short bio copy used in more than one place.
- *
- * Nothing here is fabricated. Values marked "placeholder" below are
- * not guesses — they need to be filled in with the real values
- * before this is shared widely. See README.md → "Editing portfolio
- * content" for exactly what to change and where.
+ * Site-wide copy and navigation. Identity URLs live in links.ts.
+ * Positioning: AI Automation & Agentic Systems Leader — not finance-first.
  */
+
+import { links, resumeRequestHref } from "./links";
 
 export const site = {
   name: "Ben Stone",
-  role: "AI Automation & Agentic Systems",
-  titleSuffix: "Ben Stone | AI Automation & Agentic Systems",
+  role: "AI Automation & Agentic Systems Leader",
+  titleSuffix: "Ben Stone | AI Automation & Agentic Systems Leader",
   description:
-    "AI automation and agentic systems portfolio focused on turning complex business processes into reliable AI workflows, agents, integrations, and verification systems.",
-
-  // Set this once the site has a permanent home. Used for canonical
-  // URLs and Open Graph tags. Safe to leave as the Vercel URL.
+    "AI automation and agentic systems portfolio — workflows, agents, orchestration, verification, open protocol leadership, and production-adjacent systems that make autonomous work trustworthy.",
   url: "https://ben-stone-ai.vercel.app",
 } as const;
 
-/**
- * PLACEHOLDER VALUES — replace before sharing this site widely.
- * Centralized here so nothing needs to be hunted down in components.
- */
-export const links = {
-  // TODO(ben): replace with your real contact email.
-  email: "ben@your-domain.com",
-  // TODO(ben): replace with your GitHub profile URL.
-  github: "https://github.com/your-username",
-  // TODO(ben): replace with your LinkedIn profile URL.
-  linkedin: "https://www.linkedin.com/in/your-profile",
-  // Resume PDF is served from /public/resume.pdf. Drop the file in
-  // place and this link starts working — see public/README-ADD-RESUME.txt.
-  resume: "/resume.pdf",
-} as const;
+export { links, resumeRequestHref };
 
-export const nav = [
+export type NavItem = {
+  label: string;
+  href: string;
+  external?: boolean;
+};
+
+export const nav: NavItem[] = [
   { label: "Work", href: "/#work" },
+  { label: "Standards", href: "/#standards" },
   { label: "About", href: "/about" },
-  { label: "Resume", href: links.resume, external: true },
+  { label: "Resume", href: resumeRequestHref },
   { label: "GitHub", href: links.github, external: true },
-] as const;
+];
 
 export const heroCopy = {
-  eyebrow: "AI Automation & Agentic Systems Builder",
+  eyebrow: "AI Automation & Agentic Systems Leader",
   heading: "AI Automation & Agentic Systems",
   supporting:
-    "I turn complex business processes into AI systems that can reason, route work, use tools, verify outputs, and operate reliably alongside people.",
+    "I design and build the operating layer between business work and agentic systems — discovery, orchestration, tools, verification, settlement, and reputation — so autonomous work can be trusted in production.",
   secondary:
-    "My background spans finance, operations, process design, and hands-on AI implementation. I work at the layer between the business problem and the technical system — designing the agents, workflows, integrations, controls, and verification needed to make AI useful in real operations.",
+    "My background spans operations, process design, and hands-on AI implementation across finance and non-finance domains. Finance is one domain I know deeply; the pattern is broader: agents that do real work with evidence, controls, and clear human boundaries.",
   primaryCta: { label: "View Selected Work", href: "/#work" },
   secondaryCta: { label: "About Me", href: "/about" },
   tertiaryCta: { label: "GitHub", href: links.github },
+} as const;
+
+/** Homepage proof strip — near top, below hero. */
+export const proofStrip = {
+  items: [
+    { label: "8 IETF Internet-Drafts", href: "/#standards" },
+    { label: "W3C AIVS Community Group Co-Chair", href: "/#standards" },
+    { label: "SwarmSync", href: "/work/swarmsync" },
+  ],
+} as const;
+
+export const selectedWorkCopy = {
+  eyebrow: "Selected Work",
+  heading: "Systems that make agentic work real.",
+  supporting:
+    "Each case study is a different shape of the same question: how do you get AI systems to do real work reliably — with the right checks, the right evidence, and the right person in the loop.",
 } as const;
 
 export const positioningStrip = {
@@ -111,10 +114,17 @@ export const howIBuild = {
   ],
 } as const;
 
+export const footerCopy = {
+  prompt: "Interested in working together, or just want to talk shop?",
+  contactNote: "Personal email and LinkedIn will appear here once published. For now, reach me through GitHub.",
+  disclaimer:
+    "All project descriptions reflect actual design and implementation work — no metrics on this site are estimated or fabricated. Internet-Drafts listed here are not approved IETF standards.",
+} as const;
+
 export const aboutCopy = {
   intro: [
     "I came to AI through operations, not hype.",
-    "I have a background in finance, accounting, operations, and process improvement. That turned out to be unusually useful when LLMs became capable of performing real operational work.",
+    "I have a background in finance, accounting, operations, and process improvement — and I build agentic systems that also reach beyond finance into commerce, verification, browser agents, and live assistance.",
     "I naturally see organizations as systems: information comes in, decisions are made, work is routed, exceptions occur, controls are applied, and outputs move somewhere else.",
     "AI introduces an entirely new kind of worker into that system. My focus is figuring out how to use it responsibly and practically.",
     "I work across the gap between the business problem and technical implementation. I can map a workflow with the people performing it, design an agentic architecture around it, work directly with repositories and APIs, build and test the implementation, diagnose where it breaks, and iterate until the system becomes useful.",
@@ -148,11 +158,11 @@ export const aboutCopy = {
   ],
   bridgeHeading: "The useful part is the overlap.",
   bridgeSupporting:
-    "I operate in the translation layer between business ambiguity and technical systems — fluent enough in finance and operations to know what actually matters, and hands-on enough in AI engineering to build it.",
+    "I operate in the translation layer between business ambiguity and technical systems — fluent enough in operations to know what actually matters, and hands-on enough in AI engineering to build it.",
   bridge: [
     {
       title: "Business",
-      items: ["Finance", "Accounting", "Operations", "Process improvement", "Controls", "Reporting"],
+      items: ["Operations", "Process improvement", "Controls", "Commerce & workflows", "Finance (domain depth)", "Reporting"],
     },
     {
       title: "System design",
@@ -168,11 +178,18 @@ export const aboutCopy = {
         "APIs",
         "RAG / context",
         "Verification",
+        "Open protocols",
         "Observability",
         "Deployment",
       ],
     },
   ],
+  resume: {
+    heading: "Resume",
+    body: "A downloadable PDF is not published on this site yet. Resume available on request — open a conversation via GitHub, or use the contact note below once email is listed.",
+    ctaLabel: "GitHub",
+    ctaHref: links.github,
+  },
 } as const;
 
 export const technology = [

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CapabilitiesStrip } from "@/components/project/CapabilitiesStrip";
 import { CaseStudySection } from "@/components/project/CaseStudySection";
+import { EvidenceLinks } from "@/components/project/EvidenceLinks";
 import { ProjectHero } from "@/components/project/ProjectHero";
 import { ProjectNav } from "@/components/project/ProjectNav";
 import { WorkSamples } from "@/components/project/WorkSamples";
@@ -57,6 +58,7 @@ export default async function ProjectPage({ params }: Props) {
           <CaseStudySection key={section.id} section={section} />
         ))}
       </div>
+      <EvidenceLinks links={project.evidenceLinks} />
       <WorkSamples samples={project.workSamples} />
       <ProjectNav prev={prev} next={next} />
     </article>

@@ -1,4 +1,5 @@
 import type { DiagramKey } from "@/content/projects";
+import { ConduitDiagram } from "./ConduitDiagram";
 import { FinanceOSDiagram } from "./FinanceOSDiagram";
 import { InvoiceProofDiagram } from "./InvoiceProofDiagram";
 import { SalesCoachDiagram } from "./SalesCoachDiagram";
@@ -9,6 +10,7 @@ const DIAGRAMS: Record<DiagramKey, React.ComponentType> = {
   swarmsync: SwarmSyncDiagram,
   invoiceproof: InvoiceProofDiagram,
   salescoach: SalesCoachDiagram,
+  conduit: ConduitDiagram,
 };
 
 export function DiagramRenderer({ diagram }: { diagram: DiagramKey }) {

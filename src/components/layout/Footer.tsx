@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { links, site } from "@/content/site";
+import { footerCopy, links, site } from "@/content/site";
+import { resumeRequestHref } from "@/content/links";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -9,32 +10,37 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-6 py-14">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2">
           <div>
-            <h2 className="text-lg font-semibold text-balance">
-              Interested in working together, or just want to talk shop?
-            </h2>
+            <h2 className="text-lg font-semibold text-balance">{footerCopy.prompt}</h2>
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-muted text-pretty">
+              {footerCopy.contactNote}
+            </p>
             <div className="mt-5 flex flex-wrap gap-3">
-              <a
-                href={`mailto:${links.email}`}
-                className="rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
-              >
-                Email Ben
-              </a>
-              <a
-                href={links.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-md border border-border-strong px-4 py-2 text-sm font-medium transition-colors hover:bg-subtle"
-              >
-                LinkedIn
-              </a>
               <a
                 href={links.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-md border border-border-strong px-4 py-2 text-sm font-medium transition-colors hover:bg-subtle"
+                className="rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
               >
                 GitHub
               </a>
+              {links.email ? (
+                <a
+                  href={`mailto:${links.email}`}
+                  className="rounded-md border border-border-strong px-4 py-2 text-sm font-medium transition-colors hover:bg-subtle"
+                >
+                  Email Ben
+                </a>
+              ) : null}
+              {links.linkedin ? (
+                <a
+                  href={links.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-md border border-border-strong px-4 py-2 text-sm font-medium transition-colors hover:bg-subtle"
+                >
+                  LinkedIn
+                </a>
+              ) : null}
             </div>
           </div>
 
@@ -56,9 +62,14 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <a href={links.resume} className="hover:text-foreground">
+                <Link href="/#standards" className="hover:text-foreground">
+                  Standards
+                </Link>
+              </li>
+              <li>
+                <Link href={resumeRequestHref} className="hover:text-foreground">
                   Resume
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>
@@ -68,7 +79,7 @@ export function Footer() {
           <p>
             © {year} {site.name}. Built with Next.js.
           </p>
-          <p>All project descriptions reflect actual design and implementation work — no metrics on this site are estimated or fabricated.</p>
+          <p>{footerCopy.disclaimer}</p>
         </div>
       </div>
     </footer>

@@ -1,18 +1,19 @@
 HOW TO ADD YOUR RESUME
 ======================
 
-The "Resume" link in the site header and About page points to:
+Resume links on the site currently point to /about#resume with an
+honest "available on request" message — there is no /resume.pdf yet,
+so the old PDF link was removed to avoid a 404.
 
-    /resume.pdf
+To publish a downloadable resume later:
 
-To make it work, add your resume PDF right here in this folder and
-name it exactly:
+1. Add the PDF here as:
 
-    public/resume.pdf
+       public/resume.pdf
 
-That's it — no code changes needed. Once the file exists, redeploy
-(or just push to your connected Git branch) and the Resume link will
-serve it directly.
+2. Set links.resumePdf = "/resume.pdf" in src/content/links.ts
 
-This file (README-ADD-RESUME.txt) is just a placeholder note and is
-safe to delete once resume.pdf is in place.
+3. Wire nav/about CTAs to prefer links.resumePdf when present
+   (Footer/Header already use resumeRequestHref until that exists).
+
+This file is safe to delete once resume.pdf is in place.

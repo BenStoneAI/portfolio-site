@@ -1,32 +1,29 @@
-import type { ProjectStatus } from "@/content/projects";
+import type { CapabilityStatus } from "@/content/projects";
+import { STATUS_LABEL } from "@/content/projects";
 
-const TONE: Record<ProjectStatus, string> = {
-  "Production System": "border-accent/40 bg-accent-soft text-foreground",
-  "Production Workflow": "border-accent/40 bg-accent-soft text-foreground",
-  "Active Development": "border-border-strong text-foreground",
-  Prototype: "border-border text-muted",
-  "Prototype / Active Development": "border-border text-muted",
-  "Architecture / R&D": "border-border text-muted border-dashed",
-  "Independent Project": "border-border-strong text-foreground",
+const TONE: Record<CapabilityStatus, string> = {
+  implemented: "border-accent/40 bg-accent-soft text-foreground",
+  demonstrated: "border-accent/40 bg-accent-soft text-foreground",
+  specified: "border-border-strong text-foreground",
+  experimental: "border-border text-muted",
+  planned: "border-border text-muted border-dashed",
 };
 
-const DOT_TONE: Record<ProjectStatus, string> = {
-  "Production System": "bg-accent",
-  "Production Workflow": "bg-accent",
-  "Active Development": "bg-foreground",
-  Prototype: "bg-muted",
-  "Prototype / Active Development": "bg-muted",
-  "Architecture / R&D": "bg-muted",
-  "Independent Project": "bg-foreground",
+const DOT_TONE: Record<CapabilityStatus, string> = {
+  implemented: "bg-accent",
+  demonstrated: "bg-accent",
+  specified: "bg-foreground",
+  experimental: "bg-muted",
+  planned: "bg-muted",
 };
 
-export function StatusBadge({ status }: { status: ProjectStatus }) {
+export function StatusBadge({ status }: { status: CapabilityStatus }) {
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.1em] ${TONE[status]}`}
     >
       <span className={`h-1.5 w-1.5 rounded-full ${DOT_TONE[status]}`} aria-hidden="true" />
-      {status}
+      {STATUS_LABEL[status]}
     </span>
   );
 }

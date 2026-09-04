@@ -1,25 +1,31 @@
 /**
- * Case study content for the four flagship projects. This is the
- * single place project copy, status, and metadata live — see
- * README.md → "Editing portfolio content" before touching component
- * files to change wording.
+ * Flagship project case studies — single editing surface for work pages.
+ * Capability status uses: implemented | demonstrated | specified | experimental | planned.
+ * Case study body follows: Problem / What I Built / How It Works / Why It Matters /
+ * Technical Depth / Status / Evidence.
  *
- * Truthfulness note: statuses below reflect what's described in the
- * project briefs, not a verified production claim. Confirm each
- * status against reality before this site goes out widely — see the
- * completion notes this was built with.
+ * Do not invent employer-private metrics or secrets. Prefer conservative status.
  */
 
-export type ProjectStatus =
-  | "Production System"
-  | "Production Workflow"
-  | "Active Development"
-  | "Prototype"
-  | "Prototype / Active Development"
-  | "Architecture / R&D"
-  | "Independent Project";
+export type CapabilityStatus =
+  | "implemented"
+  | "demonstrated"
+  | "specified"
+  | "experimental"
+  | "planned";
 
-export type DiagramKey = "financeos" | "swarmsync" | "invoiceproof" | "salescoach";
+/** @deprecated Prefer CapabilityStatus — kept as alias for StatusBadge imports. */
+export type ProjectStatus = CapabilityStatus;
+
+export const STATUS_LABEL: Record<CapabilityStatus, string> = {
+  implemented: "Implemented",
+  demonstrated: "Demonstrated",
+  specified: "Specified",
+  experimental: "Experimental",
+  planned: "Planned",
+};
+
+export type DiagramKey = "financeos" | "swarmsync" | "invoiceproof" | "salescoach" | "conduit";
 
 export type CaseStudySection = {
   id: string;
@@ -37,206 +43,279 @@ export type Project = {
   category: string;
   oneLiner: string;
   thesis: string;
-  status: ProjectStatus;
+  status: CapabilityStatus;
   role: string;
   systemType: string;
   capabilities: string[];
   architectureTeaser: string;
   sections: CaseStudySection[];
   /**
-   * Supporting downloadable material for this project (a one-pager,
-   * a spec sample, a before/after). Left empty until the underlying
-   * file exists in /public — an entry here with no matching file is
-   * a broken download link, so don't add one without the file.
+   * Supporting downloadable material for this project.
+   * Only add entries when the file exists under /public.
    */
   workSamples?: { label: string; href: string }[];
+  /** Optional public product / repo links shown in Evidence. */
+  evidenceLinks?: { label: string; href: string }[];
 };
 
 export const projects: Project[] = [
   {
-    slug: "financeos-cato",
-    title: "FinanceOS + Cato",
-    subtitle: "Agentic Finance Operations",
-    category: "Multi-Agent Finance Automation",
+    slug: "swarmsync",
+    title: "SwarmSync",
+    subtitle: "Autonomous Agent Commerce & Trust Infrastructure",
+    category: "Agent Commerce & Trust",
     oneLiner:
-      "An operating layer that routes finance work to specialized agents, verifies what they produce, and keeps sensitive actions behind human approval.",
-    thesis: "One orchestrator, a dozen narrow specialists, and nothing sensitive happens without evidence and a human in the loop.",
-    status: "Active Development",
-    role: "Sole architect and builder — orchestration, agent design, integrations, controls",
-    systemType: "Multi-agent orchestration system",
+      "A full pipeline for autonomous agent commerce — discovery through settlement, verification, and reputation — with verification as a layer, not the whole product.",
+    thesis:
+      "Agent marketplaces need more than matching: they need discovery, escrow/settlement, independent verification, and reputation that other systems can trust.",
+    status: "implemented",
+    role: "Sole architect and builder",
+    systemType: "Agent commerce platform + trust infrastructure",
     capabilities: [
-      "Specialized finance agents (AP, AR, cash, close, journals, financial integrity, and more)",
-      "Orchestration, classification, and routing (Cato)",
+      "Agent marketplace / commerce surface",
+      "Discovery → engagement → settlement path",
+      "AP2-oriented escrow / verified delivery patterns",
+      "Independent verification layer (claims vs evidence)",
+      "Proof products (InvoiceProof / AuditProof / VerifyAPI)",
+      "SwarmScore reputation",
+      "Protocol reference implementations (AIVS / VCAP / ATEP family)",
+    ],
+    architectureTeaser:
+      "Discovery → Engagement → Execution → Verification → Settlement → Reputation",
+    evidenceLinks: [
+      { label: "swarmsync.ai", href: "https://swarmsync.ai/" },
+      { label: "Protocol map", href: "https://swarmsync.ai/protocols.md" },
+      { label: "SwarmScore", href: "https://swarmsync.ai/swarm-score" },
+    ],
+    sections: [
+      {
+        id: "problem",
+        heading: "Problem",
+        paragraphs: [
+          "As agents start buying, selling, and delivering work for each other, “the agent said it worked” is not enough. Commerce between agents needs a shared path for discovery, engagement, settlement, and dispute — plus an independent way to check claims against evidence and to carry reputation forward.",
+        ],
+      },
+      {
+        id: "what-i-built",
+        heading: "What I Built",
+        paragraphs: [
+          "SwarmSync is autonomous agent commerce and trust infrastructure: a marketplace-oriented platform with AP2-style escrow patterns, a verification layer, SwarmScore reputation, and a proof-product front door (InvoiceProof, AuditProof, VerifyAPI).",
+          "Verification is one layer in that stack — necessary for trust, but not the whole product. The product is the full pipeline from discovery through settlement and reputation.",
+        ],
+      },
+      {
+        id: "how-it-works",
+        heading: "How It Works",
+        paragraphs: [
+          "Agents discover and engage through the commerce surface. Execution produces evidence at the tool and API layer. A verification layer correlates claims against that evidence and policy. Settlement and escrow patterns can complete when delivery checks pass. Reputation (SwarmScore) records outcomes so future counterparties can reason about track record.",
+        ],
+        list: [
+          "Discovery & engagement — find and start agent work",
+          "Execution evidence — capture what actually happened",
+          "Verification layer — check claims independently of the acting agent",
+          "Settlement / escrow — complete delivery-aware commerce paths",
+          "Reputation — publish volume- and safety-aware scores",
+        ],
+        diagram: "swarmsync",
+      },
+      {
+        id: "why-it-matters",
+        heading: "Why It Matters",
+        paragraphs: [
+          "Without an independent trust path, agent-to-agent commerce collapses into narration. SwarmSync’s point is that marketplace + payments + proof + reputation have to work together — otherwise autonomy stops at the demo.",
+        ],
+      },
+      {
+        id: "technical-depth",
+        heading: "Technical Depth",
+        paragraphs: [
+          "The monorepo spans API, web, agents gateway, and related services. Protocol work (AIVS, VCAP, ATEP, SwarmScore, and related drafts) sits alongside product surfaces so the commerce stack and the open specs reinforce each other.",
+        ],
+        list: [
+          "Verification lives outside the acting agent’s prompt loop",
+          "Evidence, not narration, is the source of truth for checks",
+          "Proof products reuse the same integrity instincts on concrete document / delivery workflows",
+          "Reputation is protocolized rather than a one-off scoreboard",
+        ],
+      },
+      {
+        id: "status",
+        heading: "Status",
+        paragraphs: [
+          "Capability status: implemented. SwarmSync exists as a substantial product codebase and public product site (swarmsync.ai), with proof surfaces that have also been demonstrated with labeled samples. This case study does not claim specific production volume or revenue metrics.",
+        ],
+      },
+      {
+        id: "evidence",
+        heading: "Evidence",
+        paragraphs: [
+          "Public product home and protocol pages are linked below. Implementation detail that is proprietary stays out of this write-up on purpose — the architecture and capability boundaries are what this page is meant to show.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "financeos-cato",
+    title: "FinanceOS + Cato + Genesis",
+    subtitle: "Enterprise AI Operations Architecture",
+    category: "Multi-Agent Operations Architecture",
+    oneLiner:
+      "An enterprise AI operations pattern: Cato orchestrates, Genesis agents specialize, and finance is the domain example — not the outer limit of the architecture.",
+    thesis:
+      "One orchestrator, many narrow specialists, and nothing sensitive happens without evidence and a human in the loop — finance is where the pattern was proven first.",
+    status: "implemented",
+    role: "Sole architect and builder — orchestration, agent design, integrations, controls",
+    systemType: "Enterprise AI operations pattern (finance domain example)",
+    capabilities: [
+      "Cato orchestration / classification / routing",
+      "Genesis specialized agent gateway",
+      "Finance-domain specialist agents (AP, AR, cash, close, journals, integrity, and more)",
       "Entity- and period-aware workflows",
       "Inbox and document intake",
       "Source evidence attached to outputs",
       "Verification before results reach a person",
       "Human approval boundaries on sensitive actions",
       "Draft-only accounting actions where appropriate",
-      "Scheduled, recurring processes",
     ],
-    architectureTeaser: "Sources → Ingestion → Cato Orchestrator → Specialist Agents → Verification → Human Review → Output",
+    architectureTeaser:
+      "Sources → Ingestion → Cato (orchestrator) → Genesis agents → Verification → Human Review → Output",
+    evidenceLinks: [
+      { label: "Cato-FinanceOS (public)", href: "https://github.com/BenStoneAI/Cato-FinanceOS" },
+      { label: "Genesis-Agents (public)", href: "https://github.com/BenStoneAI/Genesis-Agents" },
+    ],
     sections: [
       {
         id: "problem",
         heading: "Problem",
         paragraphs: [
-          "Finance work rarely lives in one system. Information can be split across accounting platforms, operational databases, email, spreadsheets, reporting tools, and individual people. The challenge was not simply giving an LLM access to those systems; it was creating an operating layer that could determine what work needed to happen, find the right evidence, delegate it safely, and make the result reviewable.",
+          "Operational work rarely lives in one system. Information splits across platforms, email, spreadsheets, reporting tools, and people. The challenge is not “give an LLM access” — it is building an operating layer that can determine what work is needed, attach the right evidence, delegate safely, and make the result reviewable.",
         ],
       },
       {
-        id: "design-principle",
-        heading: "Design Principle",
+        id: "what-i-built",
+        heading: "What I Built",
         paragraphs: [
-          "One agent should not pretend to be an entire finance department.",
-          "A single agent with access to every finance tool and a long system prompt telling it to act like a controller looks impressive in a demo. In practice, it's hard to reason about, hard to constrain, and hard to trust with anything that touches real money.",
-          "FinanceOS is built around the opposite instinct: break finance work into the same specializations a finance team already uses — revenue, cash, AP, AR, close, journals — and give each one a narrow, well-defined job. Cato, the orchestrator, doesn't do the accounting itself. It reads incoming work, figures out which specialist owns it, attaches the right context, and keeps track of what's in flight.",
-          "That separation is what makes verification possible. It's much easier to check whether a cash-matching agent got a bank reconciliation right than to audit a single generalist that touched a dozen different domains in one conversation.",
+          "FinanceOS is the domain example of an enterprise AI operations architecture: Cato is the orchestrator (classify, route, enforce policy), Genesis is the specialist agent layer, and finance workflows are where the pattern was exercised end to end.",
+          "The same pattern — orchestrator + narrow agents + verification + human gates — is not finance-only. Finance is the domain with the sharpest controls requirements, which made it a demanding proving ground.",
         ],
       },
       {
-        id: "system",
-        heading: "System",
+        id: "how-it-works",
+        heading: "How It Works",
         paragraphs: [
-          "Work enters through the channels finance work actually shows up in — inbox, documents, accounting system events, scheduled jobs. Cato classifies each item, attaches entity and period context, and routes it to the specialist agent responsible for that domain. Each agent operates inside its own boundary: it knows its data sources, its tools, and the shape of a correct answer for its domain, and nothing more.",
-          "Once an agent produces a result, it doesn't go straight to a person or a ledger. It passes through a verification step that checks the output against its supporting evidence, and — for anything sensitive — waits behind a human approval boundary before it becomes a real action.",
-        ],
-      },
-      {
-        id: "architecture",
-        heading: "Architecture",
-        paragraphs: [
-          "Sources feed a normalization layer, Cato classifies and routes, specialist agents handle the domain-specific work, and everything downstream of that is verification and human review before anything reaches reporting or the books.",
+          "Work enters through real operational channels. Cato classifies each item, attaches entity/period context, and routes to the Genesis specialist that owns that job. Results pass verification and — for sensitive actions — human approval before becoming real ledger or money movement.",
         ],
         diagram: "financeos",
       },
       {
-        id: "controls",
-        heading: "Controls",
+        id: "why-it-matters",
+        heading: "Why It Matters",
         paragraphs: [
-          "The controls aren't an afterthought bolted onto the finance agents — they're what makes routing sensitive work to an agent defensible in the first place.",
+          "A single generalist agent with every tool looks impressive in a demo and is hard to trust with consequential work. Narrow specialists plus an orchestrator make verification and policy enforceable — which is the difference between a chat demo and an operations system.",
+        ],
+      },
+      {
+        id: "technical-depth",
+        heading: "Technical Depth",
+        paragraphs: [
+          "Controls are first-class: draft-only sensitive actions, entity/period scoping, policy at the routing layer, and exception paths for low-confidence outputs. Public repositories document Cato and Genesis components without dumping private employer operational data.",
         ],
         list: [
-          "Sensitive accounting actions are draft-only by default. An agent can propose a journal entry or a payment; it cannot post one.",
-          "Every agent is scoped to a specific entity and period. It can't reach across boundaries it wasn't given.",
-          "Cato enforces policy at the routing layer, not inside each agent's prompt, so a policy change doesn't require touching every agent individually.",
-          "Failures and low-confidence outputs are routed to exceptions rather than silently passed along.",
+          "Sensitive accounting actions draft-only by default",
+          "Agents scoped to entity and period boundaries",
+          "Policy enforced in Cato routing, not only in prompts",
+          "Failures routed to exceptions instead of silent pass-through",
         ],
       },
       {
-        id: "what-changed",
-        heading: "What Changed",
+        id: "status",
+        heading: "Status",
         paragraphs: [
-          "The most visible change isn't a single automated task — it's what happens before a person looks at finance work at all. Instead of starting from a raw document or an unread inbox item, the starting point is a routed, evidence-linked draft: classified, matched against the right context, and already checked against its own supporting evidence. The person's job shifts from finding and assembling the information to reviewing a conclusion someone — or something — already assembled.",
+          "Capability status: implemented for the orchestration and specialist layers described here, operating against real finance workflows in development and deployment contexts. Not every specialist is complete; this page does not publish accuracy or time-saved metrics without verified figures.",
         ],
       },
       {
-        id: "current-state",
-        heading: "Current State",
+        id: "evidence",
+        heading: "Evidence",
         paragraphs: [
-          "FinanceOS is in active development, not production. The orchestration layer, several specialist agents, and the verification and draft-only controls described above are built and operating against real finance data and workflows. Others are still being added. I'm not publishing a claimed accuracy rate or time saved because I don't have a number I'd stand behind yet — this section will change to reflect that once I do.",
-        ],
-      },
-      {
-        id: "what-i-learned",
-        heading: "What I Learned",
-        paragraphs: [
-          "The orchestration layer is where most of the real design work lives, not the specialist agents. Any individual agent — an AP matcher, a close-checklist agent — is a fairly contained problem. Getting Cato's routing, state, and policy layer right, so that adding an agent or changing a policy doesn't mean rewriting everything else, took longer than any individual agent did.",
-          "The second lesson: verification has to be a first-class step, not a hope. An agent that's usually right is not the same as a system you can trust with financial actions. Separating \"produce an answer\" from \"verify the answer against evidence\" from \"a human decides\" turned out to be the difference between a demo and something worth using.",
+          "Public GitHub surfaces for Cato-FinanceOS and Genesis-Agents are linked below. Private employer systems and proprietary metrics are intentionally not reproduced here.",
         ],
       },
     ],
   },
   {
-    slug: "swarmsync",
-    title: "SwarmSync",
-    subtitle: "Verification Infrastructure for Agentic Systems",
-    category: "Agent Verification & Evidence",
+    slug: "conduit",
+    title: "Conduit",
+    subtitle: "Auditable Agent Browser Runtime",
+    category: "Trusted Agent Execution",
     oneLiner:
-      "An independent layer that checks whether an autonomous agent's claims about its own actions are actually backed by evidence.",
-    thesis: "Autonomous agents need an independent verification layer — because an agent grading its own work isn't verification.",
-    status: "Architecture / R&D",
-    role: "Sole architect and builder",
-    systemType: "Verification / evidence infrastructure",
+      "A headless browser with a cryptographic audit layer — SHA-256 chaining and Ed25519 signatures — so agent browsing sessions leave exportable proof.",
+    thesis:
+      "If an agent can browse and act, the session needs a proof trail that is stronger than a screenshot and a chat log.",
+    status: "implemented",
+    role: "Builder / product author",
+    systemType: "Auditable browser runtime",
     capabilities: [
-      "Agent action and coordination tracing",
-      "Execution evidence collection",
-      "Claim-to-evidence correlation",
-      "Policy checks on agent actions",
-      "Independent verification, run separately from the agent that acted",
-      "Exception routing to human review",
+      "Headless browser automation",
+      "Cryptographic session audit chain (SHA-256)",
+      "Ed25519 signed proofs",
+      "Exportable proof artifacts",
+      "Product surface on SwarmSync",
     ],
-    architectureTeaser: "Agent Execution → Tools / APIs → Execution Evidence → SwarmSync Verification Layer → Verified Result",
+    architectureTeaser: "Agent intent → Headless browser → Action log → Hash chain → Signed proof export",
+    evidenceLinks: [
+      { label: "Conduit product page", href: "https://swarmsync.ai/conduit" },
+      { label: "PyPI conduit-browser", href: "https://pypi.org/project/conduit-browser/" },
+    ],
     sections: [
       {
         id: "problem",
         heading: "Problem",
         paragraphs: [
-          "LLMs are extremely good at producing convincing explanations of what they believe happened. In high-trust workflows, explanation is not enough. Systems need machine-verifiable evidence showing what actions actually occurred.",
+          "Agent browsers can do useful work and also erase the audit trail. Traditional session recordings and screenshots are weak evidence when the question is “what exactly did the agent do, in what order, and can someone else verify it later?”",
         ],
       },
       {
-        id: "thesis",
-        heading: "Thesis",
+        id: "what-i-built",
+        heading: "What I Built",
         paragraphs: [
-          "Autonomous agents need an independent verification layer.",
-          "As agents get more autonomy — executing multi-step tool calls, chaining actions across systems, running with less supervision — the gap between what an agent reports and what actually happened becomes the thing that determines whether you can trust it with anything that matters.",
-          "SwarmSync's premise is that this verification can't come from the agent itself. An agent checking its own work isn't verification; it's the same reasoning that produced the claim, asked to grade itself.",
+          "Conduit is a headless browser runtime with a cryptographic audit layer: actions form a hash chain and can be signed (Ed25519) so sessions produce exportable proof rather than only narrative logs.",
         ],
       },
       {
-        id: "architecture",
-        heading: "Architecture",
+        id: "how-it-works",
+        heading: "How It Works",
         paragraphs: [
-          "An orchestrator drives agent execution against real tools and APIs. Every action produces execution evidence — logs, responses, state changes — independent of whatever the agent later says about what it did. SwarmSync's verification layer correlates the agent's claims against that evidence, checks them against policy, and only then produces a verified result. Anything that doesn't check out is routed to exception handling and human review instead of being trusted by default.",
+          "An agent drives browser actions through Conduit. Each material step is recorded into a chained audit structure. Proofs can be exported for later verification — the goal is integrity of the session record, not stealth browsing.",
         ],
-        diagram: "swarmsync",
+        diagram: "conduit",
       },
       {
-        id: "verification-model",
-        heading: "Verification Model",
+        id: "why-it-matters",
+        heading: "Why It Matters",
         paragraphs: [
-          "The verification layer is deliberately separated from the agent loop that produced the work:",
-        ],
-        list: [
-          "Evidence collection — capturing what actually happened at the tool and API layer, not what the agent narrates.",
-          "Claim validation — comparing the agent's stated outcome against that evidence.",
-          "Execution correlation — tying specific actions to specific claims, so a general \"it worked\" isn't enough.",
-          "Policy checks — confirming the action was allowed to happen, not just that it happened.",
-          "Independent verification — running outside the agent's own reasoning path, so a confident but wrong agent can't verify itself into a pass.",
+          "Trusted agent execution needs more than “it worked on my machine.” Cryptographic session proofs make browser-agent work reviewable by someone who was not watching the screen.",
         ],
       },
       {
-        id: "use-cases",
-        heading: "Use Cases",
+        id: "technical-depth",
+        heading: "Technical Depth",
         paragraphs: [
-          "The pattern matters most anywhere an agent's output triggers a real-world action or feeds another automated system without a person checking every step: agentic workflows that touch money, customer communication, or downstream systems; multi-agent pipelines where one agent's claimed output becomes another agent's trusted input; any workflow where \"the agent said it worked\" is currently the entire audit trail.",
+          "Published as the Python package conduit-browser with a substantial automated test suite. Related headed runtime work (conduit-halo) explores visible, policy-gated execution for operators who need to watch and approve.",
         ],
       },
       {
-        id: "design-decisions",
-        heading: "Design Decisions",
+        id: "status",
+        heading: "Status",
         paragraphs: [
-          "A few decisions shaped the architecture more than any other:",
-        ],
-        list: [
-          "Verification lives outside the agent, not inside its prompt. Asking an agent to double-check its own work is not the same as an independent system checking it.",
-          "Evidence, not narration, is the source of truth. What the agent says it did is a claim. What the tools and APIs recorded is evidence. The system is built to trust the second one.",
-          "Failure is a first-class outcome, not an edge case. A workflow with no path for \"this doesn't check out — hand it to a person\" isn't ready for autonomy.",
+          "Capability status: implemented. Public package and product page are available. This page does not invent usage metrics.",
         ],
       },
       {
-        id: "current-state",
-        heading: "Current State",
+        id: "evidence",
+        heading: "Evidence",
         paragraphs: [
-          "SwarmSync is architecture and R&D, not a deployed product — the honest way to describe it is a worked-through design with a clear thesis, not a live verification service processing real agent traffic yet. It's the piece of this portfolio I'd point to for how I reason about trust and verification in agentic systems, not for a production track record.",
-        ],
-      },
-      {
-        id: "what-i-dont-show",
-        heading: "What's Not Here",
-        paragraphs: [
-          "I'm not publishing the implementation details of how claim correlation and validation actually work — that's the part of this worth protecting. What's shown here is the shape of the problem and the architecture around it, not the internals.",
+          "Product page and PyPI package links are provided below.",
         ],
       },
     ],
@@ -248,8 +327,9 @@ export const projects: Project[] = [
     category: "Document Intake & Verification",
     oneLiner:
       "An invoice workflow that pairs every extracted value with the evidence behind it, so exceptions get caught before they reach the books.",
-    thesis: "Extraction answers what the model thinks an invoice says. Verification answers what evidence supports that.",
-    status: "Prototype",
+    thesis:
+      "Extraction answers what the model thinks an invoice says. Verification answers what evidence supports that.",
+    status: "demonstrated",
     role: "Sole builder",
     systemType: "Document automation and verification pipeline",
     capabilities: [
@@ -264,57 +344,62 @@ export const projects: Project[] = [
       "Human review for ambiguous cases",
     ],
     architectureTeaser: "Document → Ingest → Classify → Extract → Validate → Evidence Map → Pass or Exception",
+    evidenceLinks: [{ label: "SwarmSync proof suite", href: "https://swarmsync.ai/" }],
     sections: [
       {
         id: "problem",
         heading: "Problem",
         paragraphs: [
-          "Invoice processing usually gets framed as an extraction problem: pull the vendor, amount, date, and line items off a document and get them into the books faster. That's necessary, but it isn't sufficient. Extraction answers \"what does the model think the invoice says?\" It doesn't answer \"what evidence supports that conclusion?\" — and for financial documents, that second question is the one that actually matters when something's wrong.",
+          "Invoice processing usually gets framed as an extraction problem. Extraction answers “what does the model think the invoice says?” It doesn’t answer “what evidence supports that conclusion?” — and for financial documents, that second question is the one that matters when something is wrong.",
         ],
       },
       {
         id: "what-i-built",
         heading: "What I Built",
         paragraphs: [
-          "InvoiceProof takes a document or email, classifies it, extracts the structured values, and then validates each one instead of treating extraction as the finish line. Every value that comes out the other side is mapped back to the evidence that supports it — the specific text or field on the source document it came from — so a downstream reviewer isn't taking the model's word for it.",
-          "Documents that pass validation move on to the accounting workflow they belong to. Anything ambiguous, inconsistent, or missing supporting evidence — a total that doesn't reconcile with its line items, a vendor that doesn't match known records, a possible duplicate — gets flagged as an exception and routed to a person instead of pushed through.",
+          "InvoiceProof takes a document or email, classifies it, extracts structured values, and validates each one instead of treating extraction as the finish line. Every value maps back to supporting evidence on the source document.",
+          "Documents that pass move to the accounting workflow. Ambiguous or unsupported cases become exceptions for a person.",
         ],
       },
       {
-        id: "architecture",
-        heading: "Architecture",
+        id: "how-it-works",
+        heading: "How It Works",
         paragraphs: [
-          "A document or email is ingested, classified by type, run through structured extraction, and validated. The evidence map ties each extracted value back to its source. From there the workflow splits: documents that pass go to the accounting workflow; anything that doesn't gets routed to human review as an exception rather than forced through.",
+          "Ingest → classify → extract → validate → evidence map → pass or exception. The evidence map is the product differentiator: reviewers see source-backed values, not bare model confidence.",
         ],
         diagram: "invoiceproof",
       },
       {
-        id: "key-design-decisions",
-        heading: "Key Design Decisions",
+        id: "why-it-matters",
+        heading: "Why It Matters",
         paragraphs: [
-          "Extraction answers \"what does the model think the invoice says?\" Verification answers \"what evidence supports that conclusion?\" Those are different questions, and conflating them is where a lot of document-automation tools fall short — they report a confidently extracted value with no way to check it against the source.",
-          "The exception path is treated as a normal outcome, not a failure state. Ambiguous documents are common; a workflow that quietly guesses on them is worse than one that routes them to a person.",
+          "Confident extraction without evidence is how bad numbers enter the books. Evidence-first routing changes the reviewer’s job from re-keying to checking.",
         ],
       },
       {
-        id: "safety-verification-controls",
-        heading: "Safety, Verification & Controls",
+        id: "technical-depth",
+        heading: "Technical Depth",
         paragraphs: [
-          "Every value carries its evidence rather than a bare confidence score. Duplicate and anomaly checks run before a document is allowed to pass, not after. Ambiguous cases default to human review instead of a best guess.",
+          "InvoiceProof sits in the SwarmSync proof suite alongside related proof products. Exception paths are normal outcomes, not failure states.",
+        ],
+        list: [
+          "Values carry evidence, not only confidence scores",
+          "Duplicate / anomaly checks before pass",
+          "Ambiguous cases default to human review",
         ],
       },
       {
-        id: "outcome",
-        heading: "Outcome / Current State",
+        id: "status",
+        heading: "Status",
         paragraphs: [
-          "InvoiceProof currently runs the full path end to end — intake through evidence mapping and routing — as a working prototype. I haven't put a claimed volume or accuracy number on it because I don't have a verified figure I'd stand behind. What I can say is that the evidence-first approach changes what a reviewer sees: not just an extracted number, but the source that backs it up.",
+          "Capability status: demonstrated. Engines are implemented in the SwarmSync stack; public demos have historically used labeled samples. No unverified accuracy or volume metrics are published here.",
         ],
       },
       {
-        id: "lessons",
-        heading: "Lessons / Implications",
+        id: "evidence",
+        heading: "Evidence",
         paragraphs: [
-          "The instinct to treat extraction as the deliverable is strong, because extraction is the visibly hard part. But the harder, more valuable problem for financial documents is building enough evidence and validation around the extraction that someone downstream can actually trust it without re-checking the source themselves.",
+          "Product context lives under the SwarmSync proof suite. Proprietary evaluation datasets and private customer invoices are not published on this site.",
         ],
       },
     ],
@@ -326,8 +411,9 @@ export const projects: Project[] = [
     category: "Real-Time Conversational Assistance",
     oneLiner:
       "A live-call architecture that listens for objections and buying signals and quietly suggests what to say or ask next — without taking over the conversation.",
-    thesis: "Assistance, not replacement: the system surfaces a good option in real time, the rep decides what to actually say.",
-    status: "Prototype / Active Development",
+    thesis:
+      "Assistance, not replacement: the system surfaces a good option in real time, the rep decides what to actually say.",
+    status: "implemented",
     role: "Sole builder",
     systemType: "Real-time streaming assistance system",
     capabilities: [
@@ -342,57 +428,58 @@ export const projects: Project[] = [
       "Guardrails on recommendations",
       "Post-call insights",
     ],
-    architectureTeaser: "Live Call → Transcription → Conversation State → Intent Detection → Knowledge Retrieval → Rep Interface",
+    architectureTeaser:
+      "Live Call → Transcription → Conversation State → Intent Detection → Knowledge Retrieval → Rep Interface",
     sections: [
       {
         id: "problem",
         heading: "Problem",
         paragraphs: [
-          "Sales conversations move fast, and the moment where a rep would benefit most from context — an objection they haven't heard before, a buying signal they might miss, a question they don't have a crisp answer to — is also the moment there's no time to go look something up. The problem isn't a lack of information; it's getting the right piece of it into the conversation in real time without breaking the rep's attention or taking over the call.",
+          "Sales conversations move fast. The moment a rep needs context most is the moment there is no time to look it up. The problem is getting the right piece of information into the conversation without breaking attention or taking over the call.",
         ],
       },
       {
         id: "what-i-built",
         heading: "What I Built",
         paragraphs: [
-          "An architecture that listens to a live call, keeps track of conversation state as it unfolds, and recognizes objections and buying signals as they happen. When something worth surfacing comes up, it retrieves the relevant product or company knowledge and recommends what the rep might say or ask next — as a suggestion in the rep's interface, not an action taken on their behalf.",
-          "The same call transcript also feeds a separate, parallel path after the call ends: post-call analysis that produces coaching insights and can update CRM or workflow state, so the value isn't limited to the moment of the call.",
+          "A desktop-oriented architecture (CUE) that listens to a live call, maintains conversation state, recognizes objections and buying signals, and recommends what the rep might say or ask next — as a suggestion, not an action taken on their behalf.",
+          "The same transcript feeds a post-call path for coaching insights and CRM/workflow updates.",
         ],
       },
       {
-        id: "architecture",
-        heading: "Architecture",
+        id: "how-it-works",
+        heading: "How It Works",
         paragraphs: [
-          "A live call is transcribed into a stream, maintained as conversation state, and continuously checked for intent and objection signals. When something relevant surfaces, the system retrieves supporting knowledge and recommends a response or next-best-question to the rep. In parallel, the same call feeds a post-call path — analysis, coaching insights, and CRM or workflow updates — after the call ends.",
+          "Live audio → transcription stream → conversation state → intent/objection detection → knowledge retrieval → recommendation to the rep interface, with a parallel post-call analysis path.",
         ],
         diagram: "salescoach",
       },
       {
-        id: "key-design-decisions",
-        heading: "Key Design Decisions",
+        id: "why-it-matters",
+        heading: "Why It Matters",
         paragraphs: [
-          "This is built as assistance, not replacement. The system's job is to surface a good option at the right moment; the rep decides what to actually say. That shapes the interface as much as the model — recommendations need to be fast and unobtrusive enough that a rep can glance at them mid-conversation, not read a paragraph.",
+          "Real-time assistance is a different constraint than batch automation. The system has to be fast and ignorable — otherwise it becomes another interruption.",
         ],
       },
       {
-        id: "guardrails",
-        heading: "Guardrails",
+        id: "technical-depth",
+        heading: "Technical Depth",
         paragraphs: [
-          "Recommendations are scoped to what the knowledge base actually supports, rather than open-ended generation, to reduce the chance of a confident but wrong suggestion mid-call. The rep interface is designed to be ignorable — nothing about the system interrupts or takes control of the conversation.",
+          "Recommendations are grounded in retrieved knowledge rather than open-ended generation mid-call. Consent and local-listen controls matter because the system hears the call without joining as a bot.",
         ],
       },
       {
-        id: "outcome",
-        heading: "Outcome / Current State",
+        id: "status",
+        heading: "Status",
         paragraphs: [
-          "This one is earlier-stage than the others: prototype / active development. The real-time detection and recommendation path works end to end against recorded and live test conversations. I'm not claiming production call volume or a measured effect on close rates, because I don't have verified numbers for either yet.",
+          "Capability status: implemented as a desktop application architecture with end-to-end paths against recorded and live test conversations. No production close-rate metrics are claimed here.",
         ],
       },
       {
-        id: "lessons",
-        heading: "Lessons / Implications",
+        id: "evidence",
+        heading: "Evidence",
         paragraphs: [
-          "Real-time is a genuinely different constraint than the other systems here. Verification and evidence still matter, but they have to happen fast enough to be useful mid-conversation, which pushes a lot of the design toward pre-computed knowledge retrieval rather than open-ended reasoning during the call itself.",
+          "Architecture and capability boundaries are documented on this page. Proprietary call recordings and customer-specific knowledge bases are not published.",
         ],
       },
     ],
