@@ -13,9 +13,9 @@ export function WorkGrid() {
   const visible = useMemo(() => filterProjects(filter), [filter]);
 
   return (
-    <div className="mt-8">
+    <div className="mt-10">
       <div
-        className="flex flex-wrap gap-2"
+        className="flex flex-wrap gap-2.5"
         role="tablist"
         aria-label="Filter selected systems"
       >
@@ -28,10 +28,10 @@ export function WorkGrid() {
               role="tab"
               aria-selected={active}
               onClick={() => setFilter(item.id)}
-              className={`cursor-pointer rounded-full border px-3.5 py-1.5 font-mono text-[11px] tracking-[0.08em] transition-all ${
+              className={`cursor-pointer rounded-full border px-4 py-2 font-mono text-[11px] uppercase tracking-[0.1em] transition-all duration-200 ${
                 active
-                  ? "border-accent/60 bg-accent-soft/80 text-foreground font-semibold shadow-[0_0_15px_-4px_var(--color-accent-glow)]"
-                  : "border-border/90 bg-background-raised/40 text-muted hover:border-accent/40 hover:text-foreground hover:bg-subtle/60"
+                  ? "border-accent bg-accent text-accent-contrast font-bold shadow-[0_0_20px_-3px_var(--accent-glow)]"
+                  : "border-border/90 bg-background-raised/50 text-muted hover:border-accent/50 hover:text-foreground hover:bg-subtle/80"
               }`}
             >
               {item.label}
@@ -40,7 +40,7 @@ export function WorkGrid() {
         })}
       </div>
 
-      <div className="mt-8">
+      <div className="mt-10 divide-y divide-border/60">
         {visible.map((project, i) => (
           <ProjectCard key={project.slug} project={project} index={i} />
         ))}

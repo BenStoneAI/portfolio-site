@@ -3,38 +3,38 @@ import { aboutCopy } from "@/content/site";
 
 export function Bridge({ eyebrow }: { eyebrow?: string }) {
   return (
-    <section className="border-t border-border/80 bg-subtle/20">
-      <div className="mx-auto max-w-4xl px-6 py-16 sm:py-20">
+    <section className="border-t border-border/80 bg-background/50">
+      <div className="mx-auto max-w-4xl px-6 py-20 sm:py-24">
         {eyebrow ? (
-          <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent-soft/30 px-3 py-0.5 text-xs">
+          <div className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent-soft/40 px-3.5 py-1 text-xs shimmer-pill">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
-            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-accent-strong font-medium">
+            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent font-semibold">
               {eyebrow}
             </p>
           </div>
         ) : null}
-        <h2 className={`text-2xl font-bold tracking-tight text-balance sm:text-3xl ${eyebrow ? "mt-4" : ""}`}>
+        <h2 className={`font-display text-3xl font-bold tracking-tight text-balance sm:text-4xl ${eyebrow ? "mt-5" : ""}`}>
           {aboutCopy.bridgeHeading}
         </h2>
-        <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted text-pretty">
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted text-pretty">
           {aboutCopy.bridgeSupporting}
         </p>
 
-        <div className="mt-10 flex flex-col items-stretch gap-0 sm:flex-row sm:items-stretch">
+        <div className="mt-12 flex flex-col items-stretch gap-0 sm:flex-row sm:items-stretch">
           {aboutCopy.bridge.map((column, i) => (
             <div key={column.title} className="contents">
               {i > 0 ? <ArchitectureArrow responsive breakpoint="sm" /> : null}
-              <div className="group rounded-xl border border-border bg-background-raised/80 p-6 shadow-sm backdrop-blur-sm transition-all hover:border-accent/40 sm:flex-1">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-mono text-xs uppercase tracking-[0.14em] text-accent-strong font-semibold">
+              <div className="glass-card-specular glass-card-hover group rounded-2xl border border-border/80 p-7 sm:flex-1">
+                <div className="flex items-center justify-between border-b border-border/60 pb-3">
+                  <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-accent font-bold">
                     {column.title}
                   </h3>
-                  <span className="font-mono text-[10px] text-muted">0{i + 1}</span>
+                  <span className="font-mono text-xs font-semibold text-muted/60">0{i + 1}</span>
                 </div>
-                <ul className="mt-4 space-y-2">
+                <ul className="mt-5 space-y-2.5">
                   {column.items.map((item) => (
-                    <li key={item} className="flex items-center gap-2 text-sm text-foreground/90">
-                      <span className="h-1 w-1 rounded-full bg-accent/70" aria-hidden="true" />
+                    <li key={item} className="flex items-center gap-2.5 text-sm text-foreground/90 font-normal">
+                      <span className="h-1.5 w-1.5 rounded-full bg-accent/80" aria-hidden="true" />
                       <span>{item}</span>
                     </li>
                   ))}

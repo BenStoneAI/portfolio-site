@@ -4,48 +4,55 @@ import { heroCopy } from "@/content/site";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-border/40">
-      {/* Ambient background atmosphere */}
+    <section className="relative overflow-hidden border-b border-border">
+      {/* Genesis Solar Aura + Blueprint Grid Mask */}
       <div
-        className="pointer-events-none absolute -top-24 left-1/2 -z-10 h-[480px] w-[800px] -translate-x-1/2 rounded-full bg-accent/10 blur-[130px]"
+        className="pointer-events-none absolute inset-0 -z-10 hero-solar-aura opacity-90"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute inset-0 -z-10 bg-grid-pattern opacity-40 [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-blueprint-grid opacity-30 [mask-image:radial-gradient(ellipse_75%_60%_at_50%_15%,#000_50%,transparent_95%)]"
         aria-hidden="true"
       />
 
-      <div className="mx-auto max-w-6xl px-6 pt-20 pb-16 sm:pt-28 sm:pb-24">
-        <div className="inline-flex items-center gap-2.5 rounded-full border border-accent/30 bg-accent-soft/40 px-3.5 py-1 text-xs backdrop-blur-sm">
-          <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse-subtle" aria-hidden="true" />
-          <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-accent-strong font-medium">
+      <div className="mx-auto max-w-6xl px-6 pt-24 pb-20 sm:pt-32 sm:pb-28">
+        {/* Terminal Instrument Eyebrow */}
+        <div className="inline-flex items-center gap-2.5 rounded-full border border-accent/40 bg-accent-soft/50 px-4 py-1.5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] backdrop-blur-md shimmer-pill">
+          <span className="relative flex h-2 w-2 items-center justify-center">
+            <span className="absolute inline-flex h-full w-full animate-radar-ping rounded-full bg-accent opacity-75" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+          </span>
+          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent font-semibold">
             {heroCopy.eyebrow}
           </p>
         </div>
 
-        <h1 className="mt-7 max-w-4xl text-[2.75rem] font-bold leading-[1.02] tracking-tight text-balance sm:text-6xl md:text-7xl lg:text-[4.75rem]">
+        {/* Space Grotesk Architectural Heading */}
+        <h1 className="mt-8 max-w-4xl text-[3rem] font-bold leading-[0.98] tracking-[-0.04em] text-balance sm:text-6xl md:text-7xl lg:text-[5.25rem]">
           {heroCopy.heading}
         </h1>
 
-        <p className="mt-8 max-w-2xl text-lg leading-relaxed text-foreground/90 text-pretty sm:text-xl font-normal">
+        {/* Supporting Copy with crisp optical contrast */}
+        <p className="mt-8 max-w-2xl text-xl leading-relaxed text-foreground/95 text-pretty font-normal">
           {heroCopy.supporting}
         </p>
 
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted text-pretty">
+        <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted text-pretty">
           {heroCopy.secondary}
         </p>
 
-        <div className="mt-10 flex flex-wrap items-center gap-4">
+        {/* Luxury Aerospace Action Buttons */}
+        <div className="mt-12 flex flex-wrap items-center gap-5">
           <Link
             href={heroCopy.primaryCta.href}
-            className="group inline-flex items-center gap-2 rounded-lg bg-foreground px-5 py-3 text-sm font-semibold text-background shadow-[0_0_20px_-3px_var(--color-accent-glow)] transition-all hover:bg-foreground/90 hover:shadow-[0_0_30px_0px_var(--color-accent-glow)]"
+            className="group btn-metallic inline-flex items-center gap-2.5 rounded-xl px-6 py-3.5 text-sm font-bold tracking-tight text-background cursor-pointer"
           >
-            {heroCopy.primaryCta.label}
-            <ArrowRight size={15} aria-hidden="true" className="transition-transform group-hover:translate-x-0.5" />
+            <span>{heroCopy.primaryCta.label}</span>
+            <ArrowRight size={15} aria-hidden="true" className="transition-transform group-hover:translate-x-1 text-accent" />
           </Link>
           <Link
             href={heroCopy.secondaryCta.href}
-            className="inline-flex items-center rounded-lg border border-border-strong/90 bg-background-raised/70 px-5 py-3 text-sm font-medium text-foreground backdrop-blur-sm transition-all hover:border-accent hover:bg-subtle/80"
+            className="inline-flex items-center rounded-xl border border-border-strong bg-background-raised/50 px-6 py-3.5 text-sm font-semibold text-foreground backdrop-blur-md shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] transition-all hover:border-accent hover:bg-subtle/80 hover:text-accent-strong"
           >
             {heroCopy.secondaryCta.label}
           </Link>

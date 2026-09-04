@@ -1,28 +1,21 @@
 import type { ReactNode } from "react";
 
 /**
- * Architecture diagram design system.
- *
- * A small set of composable primitives used to build every system
- * diagram on the site. They share one visual language — flat neutral
- * boxes, a monospace category label, a single accent reserved for
- * verification/human-control layers — so a reader who has seen one
- * diagram can read all of them. Diagrams are read top-to-bottom and
- * reflow naturally on narrow screens; nothing here relies on fixed
- * pixel widths or horizontal scrolling.
+ * Architecture diagram design system — Genesis Aerospace & Obsidian Spec.
+ * Composable primitives with smoked glass materiality and warm champagne verification layers.
  */
 
 type NodeKind = "source" | "process" | "orchestrator" | "agent" | "verify" | "human" | "output" | "exception";
 
 const KIND_STYLES: Record<NodeKind, string> = {
-  source: "border-border/90 bg-background-raised/80 shadow-xs",
-  process: "border-border/90 bg-background-raised/80 shadow-xs",
-  orchestrator: "border-border-strong bg-background-raised shadow-xs",
-  agent: "border-border-strong/80 bg-background-raised/90 shadow-xs",
-  verify: "border-accent/50 bg-accent-soft/70 shadow-[0_0_16px_-4px_var(--color-accent-glow)] ring-1 ring-accent/30",
-  human: "border-accent/50 bg-accent-soft/70 shadow-[0_0_16px_-4px_var(--color-accent-glow)] ring-1 ring-accent/30",
-  output: "border-border/90 bg-background-raised/80 shadow-xs",
-  exception: "border-border-strong border-dashed bg-background/80",
+  source: "border-border/80 bg-background-card/80 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]",
+  process: "border-border/80 bg-background-card/80 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]",
+  orchestrator: "border-border-strong bg-background-raised shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]",
+  agent: "border-border/90 bg-background-card/90 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]",
+  verify: "border-accent/70 bg-accent-soft/80 shadow-[0_0_24px_-4px_var(--accent-glow),inset_0_1px_0_0_rgba(255,255,255,0.3)] ring-1 ring-accent/30",
+  human: "border-accent/70 bg-accent-soft/80 shadow-[0_0_24px_-4px_var(--accent-glow),inset_0_1px_0_0_rgba(255,255,255,0.3)] ring-1 ring-accent/30",
+  output: "border-border/80 bg-background-card/80 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]",
+  exception: "border-border-strong border-dashed bg-background/60",
 };
 
 const KIND_LABEL: Record<NodeKind, string> = {
@@ -47,7 +40,7 @@ export function ArchitectureFlow({
     <figure
       role="group"
       aria-label={ariaLabel}
-      className="w-full rounded-xl border border-border/80 bg-subtle/30 p-4 shadow-sm backdrop-blur-xs sm:p-6 md:p-8"
+      className="w-full rounded-2xl border border-border/90 bg-background-raised/30 p-5 shadow-[0_16px_36px_-10px_rgba(0,0,0,0.4)] backdrop-blur-md sm:p-7 md:p-9"
     >
       <div className="flex flex-col items-stretch gap-0">{children}</div>
     </figure>
@@ -69,11 +62,11 @@ export function ArchitectureNode({
 
   return (
     <div
-      className={`min-w-0 rounded-lg border px-4 py-3.5 text-center transition-all hover:border-accent/40 ${KIND_STYLES[kind]} ${className}`}
+      className={`min-w-0 rounded-xl border px-4 py-3.5 text-center transition-all hover:border-accent/60 hover:shadow-[0_0_20px_-4px_var(--accent-glow)] ${KIND_STYLES[kind]} ${className}`}
     >
       <div
-        className={`font-mono text-[10px] font-semibold uppercase tracking-[0.16em] ${
-          isHighlighted ? "text-accent-strong" : "text-muted"
+        className={`font-mono text-[10px] font-bold uppercase tracking-[0.18em] ${
+          isHighlighted ? "text-accent" : "text-muted"
         }`}
       >
         {KIND_LABEL[kind]}
@@ -101,21 +94,21 @@ export function ArchitectureGroup({
 
   return (
     <div
-      className={`rounded-xl border p-4 sm:p-5 transition-colors ${
+      className={`rounded-2xl border p-5 sm:p-6 transition-all ${
         isEmphasized
-          ? "border-accent/40 bg-accent-soft/40 shadow-[0_0_20px_-6px_var(--color-accent-glow)]"
-          : "border-border/90 bg-background-raised/70 shadow-xs"
+          ? "border-accent/50 bg-accent-soft/50 shadow-[0_0_30px_-8px_var(--accent-glow)]"
+          : "border-border/90 bg-background-card/60 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]"
       }`}
     >
       <div
-        className={`mb-3.5 font-mono text-[10px] font-semibold uppercase tracking-[0.16em] ${
-          isEmphasized ? "text-accent-strong" : "text-muted"
+        className={`mb-4 font-mono text-[10px] font-bold uppercase tracking-[0.2em] ${
+          isEmphasized ? "text-accent" : "text-muted"
         }`}
       >
         {title}
       </div>
       <div
-        className={`grid gap-2.5 ${
+        className={`grid gap-3 ${
           columns === "narrow"
             ? "grid-cols-2 sm:grid-cols-3 md:grid-cols-4"
             : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4"
@@ -136,7 +129,7 @@ export function ArchitectureChip({
 }) {
   return (
     <div
-      className={`rounded-md border px-3 py-2 text-center text-xs font-medium leading-tight transition-colors ${KIND_STYLES[kind]}`}
+      className={`rounded-lg border px-3 py-2 text-center text-xs font-semibold leading-tight transition-all hover:border-accent/40 ${KIND_STYLES[kind]}`}
     >
       {label}
     </div>
@@ -149,7 +142,6 @@ export function ArchitectureArrow({
   breakpoint = "sm",
 }: {
   label?: string;
-  /** When true, renders as a down-arrow on narrow screens and a right-arrow from `breakpoint` up — for rows that go from stacked to side-by-side. */
   responsive?: boolean;
   breakpoint?: "sm" | "lg";
 }) {
@@ -185,7 +177,7 @@ export function ArchitectureArrow({
     <div className="flex flex-col items-center py-2" aria-hidden="true">
       {downArrow}
       {label ? (
-        <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-muted font-medium">
+        <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.16em] text-muted font-semibold">
           {label}
         </div>
       ) : null}
@@ -193,7 +185,6 @@ export function ArchitectureArrow({
   );
 }
 
-/** A horizontal split into two or more labeled paths (e.g. pass vs. exception). */
 export function ArchitectureBranches({ children }: { children: ReactNode }) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">{children}</div>
@@ -211,11 +202,11 @@ export function ArchitectureBranch({
 }) {
   return (
     <div
-      className={`flex flex-col items-stretch gap-0 rounded-lg border p-3.5 transition-colors ${
-        tone === "exception" ? "border-dashed border-border-strong bg-background/50" : "border-border bg-background-raised/50"
+      className={`flex flex-col items-stretch gap-0 rounded-xl border p-4 transition-all ${
+        tone === "exception" ? "border-dashed border-border-strong bg-background/50" : "border-border bg-background-card/50"
       }`}
     >
-      <div className="mb-2 text-center font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-muted">
+      <div className="mb-2.5 text-center font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted">
         {label}
       </div>
       {children}
