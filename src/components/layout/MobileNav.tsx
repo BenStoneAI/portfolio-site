@@ -39,9 +39,9 @@ export function MobileNav() {
         aria-expanded={open}
         aria-controls={panelId}
         aria-label={open ? "Close menu" : "Open menu"}
-        className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border text-foreground"
+        className="cursor-pointer inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border-strong/80 bg-background-raised/80 text-foreground transition-colors hover:border-accent"
       >
-        {open ? <X size={18} aria-hidden="true" /> : <Menu size={18} aria-hidden="true" />}
+        {open ? <X size={17} aria-hidden="true" /> : <Menu size={17} aria-hidden="true" />}
       </button>
 
       {open ? (
@@ -50,13 +50,13 @@ export function MobileNav() {
           role="dialog"
           aria-modal="true"
           aria-label="Site menu"
-          className="fixed inset-x-0 top-[57px] z-40 border-b border-border bg-background px-6 py-6 shadow-lg animate-fade-up"
+          className="fixed inset-x-0 top-[57px] z-40 border-b border-border bg-background/95 glass-panel px-6 py-6 shadow-xl animate-fade-up"
         >
           <nav aria-label="Mobile">
-            <ul className="flex flex-col gap-1">
+            <ul className="flex flex-col gap-1.5">
               {nav.map((item, i) => {
                 const isExternal = "external" in item && item.external;
-                const linkClass = "block rounded-md px-3 py-3 text-base font-medium text-foreground hover:bg-subtle";
+                const linkClass = "block rounded-lg px-4 py-3 text-base font-semibold text-foreground hover:bg-subtle/80 hover:text-accent-strong transition-colors";
                 return (
                   <li key={item.href}>
                     {isExternal ? (
@@ -87,7 +87,7 @@ export function MobileNav() {
                 <Link
                   href="/#contact"
                   onClick={() => setOpen(false)}
-                  className="mt-2 block rounded-md border border-border-strong px-3 py-3 text-center text-base font-medium text-foreground hover:bg-subtle"
+                  className="mt-3 block rounded-lg border border-border-strong/90 bg-background-raised px-4 py-3 text-center text-base font-semibold text-foreground shadow-xs transition-all hover:border-accent hover:text-accent-strong"
                 >
                   Contact
                 </Link>

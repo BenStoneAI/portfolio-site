@@ -19,14 +19,19 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <article>
-      <header className="mx-auto max-w-3xl px-6 pt-14 pb-4 sm:pt-20">
-        <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent-strong">About</p>
-        <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">Working philosophy</h1>
+    <article className="relative">
+      <header className="mx-auto max-w-3xl px-6 pt-16 pb-6 sm:pt-24">
+        <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent-soft/30 px-3 py-0.5 text-xs">
+          <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
+          <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-accent-strong font-medium">About</p>
+        </div>
+        <h1 className="mt-5 text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
+          Working philosophy
+        </h1>
       </header>
 
-      <div className="mx-auto max-w-3xl px-6 pb-14">
-        <div className="space-y-5">
+      <div className="mx-auto max-w-3xl px-6 pb-16">
+        <div className="space-y-6">
           {aboutCopy.intro.map((paragraph, i) => (
             <p
               key={i}
@@ -47,7 +52,7 @@ export default function AboutPage() {
             {...(links.resumePdf
               ? { target: "_blank", rel: "noopener noreferrer" }
               : {})}
-            className="rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
+            className="inline-flex items-center rounded-lg bg-foreground px-5 py-2.5 text-sm font-semibold text-background shadow-[0_0_15px_-3px_var(--color-accent-glow)] transition-all hover:bg-foreground/90"
           >
             {links.resumePdf ? "Download resume" : "Resume on request"}
           </a>
@@ -56,7 +61,7 @@ export default function AboutPage() {
               href={links.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-md border border-border-strong px-4 py-2 text-sm font-medium transition-colors hover:bg-subtle"
+              className="inline-flex items-center rounded-lg border border-border-strong/90 bg-background-raised/70 px-5 py-2.5 text-sm font-medium text-foreground transition-all hover:border-accent hover:bg-subtle/80"
             >
               LinkedIn
             </a>
@@ -64,7 +69,7 @@ export default function AboutPage() {
           {links.email ? (
             <a
               href={`mailto:${links.email}`}
-              className="rounded-md border border-border-strong px-4 py-2 text-sm font-medium transition-colors hover:bg-subtle"
+              className="inline-flex items-center rounded-lg border border-border-strong/90 bg-background-raised/70 px-5 py-2.5 text-sm font-medium text-foreground transition-all hover:border-accent hover:bg-subtle/80"
             >
               Email Ben
             </a>
@@ -75,12 +80,15 @@ export default function AboutPage() {
       <Bridge />
       <Principles />
 
-      <section id="resume" className="scroll-mt-16 border-t border-border">
-        <div className="mx-auto max-w-3xl px-6 py-14 sm:py-16">
-          <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent-strong">
-            {aboutCopy.resume.heading}
-          </p>
-          <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
+      <section id="resume" className="scroll-mt-16 border-t border-border/80 bg-subtle/20">
+        <div className="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+          <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent-soft/30 px-3 py-0.5 text-xs">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
+            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-accent-strong font-medium">
+              {aboutCopy.resume.heading}
+            </p>
+          </div>
+          <h2 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">
             Download
           </h2>
           <p className="mt-4 text-[1.05rem] leading-relaxed text-foreground/90 text-pretty">
@@ -90,26 +98,32 @@ export default function AboutPage() {
             href={aboutCopy.resume.ctaHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex rounded-md border border-border-strong px-4 py-2 text-sm font-medium transition-colors hover:bg-subtle"
+            className="mt-6 inline-flex rounded-lg border border-border-strong/90 bg-background-raised px-5 py-2.5 text-sm font-semibold text-foreground shadow-xs transition-all hover:border-accent hover:bg-subtle/80 hover:text-accent-strong"
           >
             {aboutCopy.resume.ctaLabel}
           </a>
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-6 py-14 sm:py-16">
-        <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent-strong">Technology</p>
-        <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
+      <section className="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+        <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent-soft/30 px-3 py-0.5 text-xs">
+          <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
+          <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-accent-strong font-medium">Technology</p>
+        </div>
+        <h2 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">
           What I actually work with.
         </h2>
 
-        <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2">
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
           {technology.map((group) => (
-            <div key={group.category}>
-              <h3 className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
+            <div
+              key={group.category}
+              className="rounded-xl border border-border/80 bg-background-raised/60 p-5 shadow-xs transition-all hover:border-accent/40"
+            >
+              <h3 className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-accent-strong">
                 {group.category}
               </h3>
-              <p className="mt-2.5 text-sm leading-relaxed text-foreground/90 text-pretty">
+              <p className="mt-3 text-sm leading-relaxed text-foreground/90 text-pretty">
                 {group.items.join(" · ")}
               </p>
             </div>

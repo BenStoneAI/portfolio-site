@@ -15,14 +15,14 @@ import type { ReactNode } from "react";
 type NodeKind = "source" | "process" | "orchestrator" | "agent" | "verify" | "human" | "output" | "exception";
 
 const KIND_STYLES: Record<NodeKind, string> = {
-  source: "border-border bg-background-raised",
-  process: "border-border bg-background-raised",
-  orchestrator: "border-border-strong bg-background-raised",
-  agent: "border-border bg-background-raised",
-  verify: "border-accent/40 bg-accent-soft",
-  human: "border-accent/40 bg-accent-soft",
-  output: "border-border bg-background-raised",
-  exception: "border-border-strong border-dashed bg-background",
+  source: "border-border/90 bg-background-raised/80 shadow-xs",
+  process: "border-border/90 bg-background-raised/80 shadow-xs",
+  orchestrator: "border-border-strong bg-background-raised shadow-xs",
+  agent: "border-border-strong/80 bg-background-raised/90 shadow-xs",
+  verify: "border-accent/50 bg-accent-soft/70 shadow-[0_0_16px_-4px_var(--color-accent-glow)] ring-1 ring-accent/30",
+  human: "border-accent/50 bg-accent-soft/70 shadow-[0_0_16px_-4px_var(--color-accent-glow)] ring-1 ring-accent/30",
+  output: "border-border/90 bg-background-raised/80 shadow-xs",
+  exception: "border-border-strong border-dashed bg-background/80",
 };
 
 const KIND_LABEL: Record<NodeKind, string> = {
@@ -47,7 +47,7 @@ export function ArchitectureFlow({
     <figure
       role="group"
       aria-label={ariaLabel}
-      className="w-full rounded-lg border border-border bg-subtle/40 p-4 sm:p-6 md:p-8"
+      className="w-full rounded-xl border border-border/80 bg-subtle/30 p-4 shadow-sm backdrop-blur-xs sm:p-6 md:p-8"
     >
       <div className="flex flex-col items-stretch gap-0">{children}</div>
     </figure>
@@ -65,14 +65,20 @@ export function ArchitectureNode({
   kind?: NodeKind;
   className?: string;
 }) {
+  const isHighlighted = kind === "verify" || kind === "human";
+
   return (
     <div
-      className={`min-w-0 rounded-md border px-4 py-3 text-center transition-colors ${KIND_STYLES[kind]} ${className}`}
+      className={`min-w-0 rounded-lg border px-4 py-3.5 text-center transition-all hover:border-accent/40 ${KIND_STYLES[kind]} ${className}`}
     >
-      <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+      <div
+        className={`font-mono text-[10px] font-semibold uppercase tracking-[0.16em] ${
+          isHighlighted ? "text-accent-strong" : "text-muted"
+        }`}
+      >
         {KIND_LABEL[kind]}
       </div>
-      <div className="mt-1 text-sm font-medium text-balance sm:text-[0.95rem]">{label}</div>
+      <div className="mt-1 text-sm font-semibold tracking-tight text-balance sm:text-[0.95rem]">{label}</div>
       {sublabel ? (
         <div className="mt-0.5 text-xs text-muted text-pretty">{sublabel}</div>
       ) : null}
@@ -95,19 +101,21 @@ export function ArchitectureGroup({
 
   return (
     <div
-      className={`rounded-lg border p-3 sm:p-4 ${
-        isEmphasized ? "border-accent/40 bg-accent-soft/40" : "border-border-strong bg-background-raised/60"
+      className={`rounded-xl border p-4 sm:p-5 transition-colors ${
+        isEmphasized
+          ? "border-accent/40 bg-accent-soft/40 shadow-[0_0_20px_-6px_var(--color-accent-glow)]"
+          : "border-border/90 bg-background-raised/70 shadow-xs"
       }`}
     >
       <div
-        className={`mb-3 font-mono text-[10px] uppercase tracking-[0.14em] ${
+        className={`mb-3.5 font-mono text-[10px] font-semibold uppercase tracking-[0.16em] ${
           isEmphasized ? "text-accent-strong" : "text-muted"
         }`}
       >
         {title}
       </div>
       <div
-        className={`grid gap-2 ${
+        className={`grid gap-2.5 ${
           columns === "narrow"
             ? "grid-cols-2 sm:grid-cols-3 md:grid-cols-4"
             : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4"
@@ -128,7 +136,7 @@ export function ArchitectureChip({
 }) {
   return (
     <div
-      className={`rounded border px-2.5 py-2 text-center text-xs font-medium leading-tight ${KIND_STYLES[kind]}`}
+      className={`rounded-md border px-3 py-2 text-center text-xs font-medium leading-tight transition-colors ${KIND_STYLES[kind]}`}
     >
       {label}
     </div>
@@ -146,13 +154,13 @@ export function ArchitectureArrow({
   breakpoint?: "sm" | "lg";
 }) {
   const downArrow = (
-    <svg width="16" height="28" viewBox="0 0 16 28" className="text-border-strong">
+    <svg width="16" height="28" viewBox="0 0 16 28" className="text-border-strong transition-colors hover:text-accent">
       <line x1="8" y1="0" x2="8" y2="20" stroke="currentColor" strokeWidth="1.5" />
       <path d="M2 16 L8 24 L14 16" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
   const rightArrow = (
-    <svg width="28" height="16" viewBox="0 0 28 16" className="text-border-strong">
+    <svg width="28" height="16" viewBox="0 0 28 16" className="text-border-strong transition-colors hover:text-accent">
       <line x1="0" y1="8" x2="20" y2="8" stroke="currentColor" strokeWidth="1.5" />
       <path d="M16 2 L24 8 L16 14" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
@@ -161,8 +169,8 @@ export function ArchitectureArrow({
   if (responsive) {
     const wrapClass =
       breakpoint === "lg"
-        ? "flex shrink-0 flex-col items-center justify-center py-1.5 lg:py-0 lg:px-1.5"
-        : "flex shrink-0 flex-col items-center justify-center py-1.5 sm:py-0 sm:px-1.5";
+        ? "flex shrink-0 flex-col items-center justify-center py-2 lg:py-0 lg:px-2"
+        : "flex shrink-0 flex-col items-center justify-center py-2 sm:py-0 sm:px-2";
     const hideDownClass = breakpoint === "lg" ? "lg:hidden" : "sm:hidden";
     const showRightClass = breakpoint === "lg" ? "hidden lg:inline-flex" : "hidden sm:inline-flex";
     return (
@@ -174,10 +182,10 @@ export function ArchitectureArrow({
   }
 
   return (
-    <div className="flex flex-col items-center py-1.5" aria-hidden="true">
+    <div className="flex flex-col items-center py-2" aria-hidden="true">
       {downArrow}
       {label ? (
-        <div className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-muted">
+        <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-muted font-medium">
           {label}
         </div>
       ) : null}
@@ -203,11 +211,11 @@ export function ArchitectureBranch({
 }) {
   return (
     <div
-      className={`flex flex-col items-stretch gap-0 rounded-md border p-3 ${
-        tone === "exception" ? "border-dashed border-border-strong" : "border-border"
+      className={`flex flex-col items-stretch gap-0 rounded-lg border p-3.5 transition-colors ${
+        tone === "exception" ? "border-dashed border-border-strong bg-background/50" : "border-border bg-background-raised/50"
       }`}
     >
-      <div className="mb-2 text-center font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+      <div className="mb-2 text-center font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-muted">
         {label}
       </div>
       {children}
