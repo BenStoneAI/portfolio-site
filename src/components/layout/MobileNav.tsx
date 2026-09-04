@@ -14,6 +14,8 @@ export function MobileNav() {
   useEffect(() => {
     if (!open) return;
     firstLinkRef.current?.focus();
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
 
     function onKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape") {
@@ -22,7 +24,10 @@ export function MobileNav() {
       }
     }
     document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
   }, [open]);
 
   return (
@@ -42,6 +47,9 @@ export function MobileNav() {
       {open ? (
         <div
           id={panelId}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Site menu"
           className="fixed inset-x-0 top-[57px] z-40 border-b border-border bg-background px-6 py-6 shadow-lg animate-fade-up"
         >
           <nav aria-label="Mobile">

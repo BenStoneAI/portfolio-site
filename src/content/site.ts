@@ -46,7 +46,7 @@ export const heroCopy = {
 export const proofStrip = {
   items: [
     { label: "8 IETF Internet-Drafts", href: "/#standards" },
-    { label: "W3C AIVS Community Group Co-Chair", href: "/#standards" },
+    { label: "W3C AIVS Community Group Co-Chair", href: "/#w3c-aivs" },
     { label: "SwarmSync", href: "/work/swarmsync" },
   ],
 } as const;

@@ -50,6 +50,7 @@ export function StandardsSection() {
                           className="inline-flex items-center gap-1 font-medium text-foreground underline-offset-4 hover:underline"
                         >
                           Datatracker
+                          <span className="sr-only"> (opens in a new tab)</span>
                           <ExternalLink size={13} aria-hidden="true" />
                         </a>
                         {draft.repoUrl ? (
@@ -60,6 +61,7 @@ export function StandardsSection() {
                             className="inline-flex items-center gap-1 text-muted underline-offset-4 hover:text-foreground hover:underline"
                           >
                             Spec repo
+                            <span className="sr-only"> (opens in a new tab)</span>
                             <ExternalLink size={13} aria-hidden="true" />
                           </a>
                         ) : null}
@@ -72,7 +74,10 @@ export function StandardsSection() {
           ))}
         </div>
 
-        <div className="mt-14 rounded-lg border border-border bg-background-raised/60 p-6 sm:p-8">
+        <div
+          id="w3c-aivs"
+          className="mt-14 scroll-mt-16 rounded-lg border border-border bg-background-raised/60 p-6 sm:p-8"
+        >
           <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-accent-strong">
             W3C Community Group
           </p>
@@ -96,6 +101,7 @@ export function StandardsSection() {
             className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline-offset-4 hover:underline"
           >
             Official W3C group page
+            <span className="sr-only"> (opens in a new tab)</span>
             <ExternalLink size={14} aria-hidden="true" />
           </a>
         </div>
