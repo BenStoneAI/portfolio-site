@@ -30,7 +30,7 @@ export default function NotFound() {
           href="/#work"
           className="inline-flex items-center rounded-md border border-border-strong px-4 py-2.5 text-sm font-medium transition-colors hover:bg-subtle"
         >
-          View Selected Work
+          View Selected Systems
         </Link>
       </div>
     </div>

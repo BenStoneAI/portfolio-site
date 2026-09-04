@@ -37,7 +37,7 @@ export const heroCopy = {
     "I design and build the operating layer between business work and agentic systems — discovery, orchestration, tools, verification, settlement, and reputation — so autonomous work can be trusted in production.",
   secondary:
     "My background spans operations, process design, and hands-on AI implementation across finance and non-finance domains. Finance is one domain I know deeply; the pattern is broader: agents that do real work with evidence, controls, and clear human boundaries.",
-  primaryCta: { label: "View Selected Work", href: "/#work" },
+  primaryCta: { label: "View Selected Systems", href: "/#work" },
   secondaryCta: { label: "About Me", href: "/about" },
 } as const;
 
@@ -51,10 +51,10 @@ export const proofStrip = {
 } as const;
 
 export const selectedWorkCopy = {
-  eyebrow: "Selected Work",
-  heading: "Systems that make agentic work real.",
+  eyebrow: "Selected Systems & Products",
+  heading: "Selected Systems & Products",
   supporting:
-    "Each case study is a different shape of the same question: how do you get AI systems to do real work reliably — with the right checks, the right evidence, and the right person in the loop.",
+    "Platforms, operations systems, trusted agent tooling, and commercial wedges — each with clear status. Visit Site appears only for verified public product pages.",
 } as const;
 
 export const positioningStrip = {

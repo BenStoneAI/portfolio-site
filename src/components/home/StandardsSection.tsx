@@ -53,18 +53,6 @@ export function StandardsSection() {
                           <span className="sr-only"> (opens in a new tab)</span>
                           <ExternalLink size={13} aria-hidden="true" />
                         </a>
-                        {draft.repoUrl ? (
-                          <a
-                            href={draft.repoUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-muted underline-offset-4 hover:text-foreground hover:underline"
-                          >
-                            Spec repo
-                            <span className="sr-only"> (opens in a new tab)</span>
-                            <ExternalLink size={13} aria-hidden="true" />
-                          </a>
-                        ) : null}
                       </div>
                     </div>
                   </li>

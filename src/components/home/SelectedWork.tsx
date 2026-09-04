@@ -1,6 +1,5 @@
-import { projects } from "@/content/projects";
 import { selectedWorkCopy } from "@/content/site";
-import { ProjectCard } from "@/components/project/ProjectCard";
+import { WorkGrid } from "@/components/home/WorkGrid";
 
 export function SelectedWork() {
   return (
@@ -17,11 +16,7 @@ export function SelectedWork() {
         </p>
       </div>
 
-      <div className="mt-10">
-        {projects.map((project, i) => (
-          <ProjectCard key={project.slug} project={project} index={i} />
-        ))}
-      </div>
+      <WorkGrid />
     </section>
   );
 }
