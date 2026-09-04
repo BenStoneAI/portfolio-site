@@ -43,6 +43,7 @@ export const WORK_FILTERS: { id: WorkFilterId | "all"; label: string }[] = [
 
 export type DiagramKey =
   | "financeos"
+  | "catogenesis"
   | "swarmsync"
   | "invoiceproof"
   | "salescoach"
@@ -307,7 +308,7 @@ export const projects: Project[] = [
         paragraphs: [
           "Cato classifies and routes work under policy. Genesis specialists execute scoped jobs. Results return through verification and human gates for consequential actions. CompanyOS Control Plane remains the durable authority; Cato coordinates rather than becoming a second system of record.",
         ],
-        diagram: "financeos",
+        diagram: "catogenesis",
       },
       {
         id: "why-it-matters",

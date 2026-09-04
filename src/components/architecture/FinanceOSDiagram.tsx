@@ -25,7 +25,7 @@ const AGENTS = [
 
 export function FinanceOSDiagram() {
   return (
-    <ArchitectureFlow ariaLabel="FinanceOS and Cato architecture: sources feed ingestion, the Cato orchestrator classifies and routes work to specialist finance agents, outputs are verified, and sensitive results wait for human review before reporting or action.">
+    <ArchitectureFlow ariaLabel="FinanceOS enterprise AI ops pattern: sources feed ingestion, an orchestrator classifies and routes work to specialist finance agents, outputs are verified, and sensitive results wait for human review before reporting or action.">
       <ArchitectureGroup title="Sources" kind="source">
         {SOURCES.map((s) => (
           <ArchitectureChip key={s} label={s} kind="source" />
@@ -40,7 +40,7 @@ export function FinanceOSDiagram() {
 
       <ArchitectureNode
         kind="orchestrator"
-        label="Cato orchestrator"
+        label="Orchestrator"
         sublabel="Classification · entity & period context · routing · state · policies"
       />
 
