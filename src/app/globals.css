@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+/*
+  Design tokens — restrained neutral palette, one accent.
+  Neutrals lean warm (subtle warm-gray "stone" cast), accent is a
+  muted amber/bronze used sparingly for emphasis, links, and the
+  architecture-diagram active state.
+*/
+
+:root {
+  --background: oklch(98.5% 0.004 75);
+  --background-raised: oklch(100% 0 0);
+  --foreground: oklch(19% 0.006 75);
+  --muted: oklch(45% 0.008 75);
+  --subtle: oklch(94% 0.005 75);
+  --border: oklch(88% 0.006 75);
+  --border-strong: oklch(78% 0.008 75);
+
+  --accent: oklch(52% 0.13 55);
+  --accent-strong: oklch(42% 0.13 55);
+  --accent-soft: oklch(94% 0.03 55);
+  --accent-contrast: oklch(99% 0.01 90);
+
+  --focus-ring: oklch(52% 0.13 55);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
+}
+
+:root[data-theme="dark"] {
+  --background: oklch(16% 0.006 75);
+  --background-raised: oklch(20% 0.007 75);
+  --foreground: oklch(96% 0.004 75);
+  --muted: oklch(70% 0.01 75);
+  --subtle: oklch(24% 0.008 75);
+  --border: oklch(30% 0.01 75);
+  --border-strong: oklch(38% 0.012 75);
+
+  --accent: oklch(72% 0.13 60);
+  --accent-strong: oklch(80% 0.12 60);
+  --accent-soft: oklch(28% 0.05 55);
+  --accent-contrast: oklch(14% 0.01 75);
+
+  --focus-ring: oklch(72% 0.13 60);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --background: oklch(16% 0.006 75);
+    --background-raised: oklch(20% 0.007 75);
+    --foreground: oklch(96% 0.004 75);
+    --muted: oklch(70% 0.01 75);
+    --subtle: oklch(24% 0.008 75);
+    --border: oklch(30% 0.01 75);
+    --border-strong: oklch(38% 0.012 75);
+
+    --accent: oklch(72% 0.13 60);
+    --accent-strong: oklch(80% 0.12 60);
+    --accent-soft: oklch(28% 0.05 55);
+    --accent-contrast: oklch(14% 0.01 75);
+
+    --focus-ring: oklch(72% 0.13 60);
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-raised: var(--background-raised);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-contrast: var(--accent-contrast);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+/*
+  Element defaults live in Tailwind's base layer, not as unlayered
+  CSS. Unlayered rules always win over @layer utilities regardless of
+  source order or specificity — writing these plain would silently
+  break every text-* / border-* utility applied to a <body>, <a>, or
+  any element these selectors touch (which is exactly what happened
+  here once: button text inherited body's dark color and vanished
+  against a dark button background).
+*/
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    color-scheme: light;
+  }
+
+  html[data-theme="dark"] {
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  ::selection {
+    background: var(--accent-soft);
+    color: var(--foreground);
+  }
+
+  /* Visible, consistent focus state for keyboard navigation. */
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+/* Respect reduced-motion preferences everywhere. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer utilities {
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-up {
+    animation: fade-up 0.5s ease-out both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-up {
+      animation: none;
+    }
+  }
+}
+
+/* text-balance / text-pretty ship as built-in Tailwind v4 utilities — no custom CSS needed. */

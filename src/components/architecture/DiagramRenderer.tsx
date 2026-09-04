@@ -1,0 +1,17 @@
+import type { DiagramKey } from "@/content/projects";
+import { FinanceOSDiagram } from "./FinanceOSDiagram";
+import { InvoiceProofDiagram } from "./InvoiceProofDiagram";
+import { SalesCoachDiagram } from "./SalesCoachDiagram";
+import { SwarmSyncDiagram } from "./SwarmSyncDiagram";
+
+const DIAGRAMS: Record<DiagramKey, React.ComponentType> = {
+  financeos: FinanceOSDiagram,
+  swarmsync: SwarmSyncDiagram,
+  invoiceproof: InvoiceProofDiagram,
+  salescoach: SalesCoachDiagram,
+};
+
+export function DiagramRenderer({ diagram }: { diagram: DiagramKey }) {
+  const Diagram = DIAGRAMS[diagram];
+  return <Diagram />;
+}

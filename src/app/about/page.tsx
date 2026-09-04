@@ -1,0 +1,84 @@
+import type { Metadata } from "next";
+import { Bridge } from "@/components/about/Bridge";
+import { Principles } from "@/components/about/Principles";
+import { aboutCopy, links, technology } from "@/content/site";
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "Ben Stone's background in finance and operations, and how it shapes the way he designs and builds agentic AI systems.",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About | Ben Stone",
+    description:
+      "Ben Stone's background in finance and operations, and how it shapes the way he designs and builds agentic AI systems.",
+    url: "/about",
+    type: "profile",
+  },
+};
+
+export default function AboutPage() {
+  return (
+    <article>
+      <header className="mx-auto max-w-3xl px-6 pt-14 pb-4 sm:pt-20">
+        <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent-strong">About</p>
+        <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">Working philosophy</h1>
+      </header>
+
+      <div className="mx-auto max-w-3xl px-6 pb-14">
+        <div className="space-y-5">
+          {aboutCopy.intro.map((paragraph, i) => (
+            <p
+              key={i}
+              className={
+                i === 0
+                  ? "text-xl font-medium leading-relaxed text-foreground text-pretty"
+                  : "text-[1.05rem] leading-relaxed text-foreground/90 text-pretty"
+              }
+            >
+              {paragraph}
+            </p>
+          ))}
+        </div>
+
+        <div className="mt-10 flex flex-wrap gap-3">
+          <a
+            href={links.resume}
+            className="rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
+          >
+            Download Resume
+          </a>
+          <a
+            href={`mailto:${links.email}`}
+            className="rounded-md border border-border-strong px-4 py-2 text-sm font-medium transition-colors hover:bg-subtle"
+          >
+            Email Ben
+          </a>
+        </div>
+      </div>
+
+      <Bridge />
+      <Principles />
+
+      <section className="mx-auto max-w-3xl px-6 py-14 sm:py-16">
+        <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent-strong">Technology</p>
+        <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
+          What I actually work with.
+        </h2>
+
+        <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2">
+          {technology.map((group) => (
+            <div key={group.category}>
+              <h3 className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
+                {group.category}
+              </h3>
+              <p className="mt-2.5 text-sm leading-relaxed text-foreground/90 text-pretty">
+                {group.items.join(" · ")}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </article>
+  );
+}
