@@ -26,8 +26,9 @@ export const nav: NavItem[] = [
   { label: "Work", href: "/#work" },
   { label: "Standards", href: "/#standards" },
   { label: "About", href: "/about" },
-  { label: "Resume", href: resumeRequestHref },
+  { label: "Resume", href: resumeRequestHref, external: true },
   { label: "GitHub", href: links.github, external: true },
+  { label: "LinkedIn", href: links.linkedin!, external: true },
 ];
 
 export const heroCopy = {
@@ -116,7 +117,7 @@ export const howIBuild = {
 
 export const footerCopy = {
   prompt: "Interested in working together, or just want to talk shop?",
-  contactNote: "Personal email and LinkedIn will appear here once published. For now, reach me through GitHub.",
+  contactNote: "Reach me by email, LinkedIn, or GitHub — whichever is easiest.",
   disclaimer:
     "All project descriptions reflect actual design and implementation work — no metrics on this site are estimated or fabricated. Internet-Drafts listed here are not approved IETF standards.",
 } as const;
@@ -186,9 +187,9 @@ export const aboutCopy = {
   ],
   resume: {
     heading: "Resume",
-    body: "A downloadable PDF is not published on this site yet. Resume available on request — open a conversation via GitHub, or use the contact note below once email is listed.",
-    ctaLabel: "GitHub",
-    ctaHref: links.github,
+    body: "AI Automation portfolio résumé — focused on agentic systems, automation leadership, and production AI operations work.",
+    ctaLabel: "Download PDF",
+    ctaHref: links.resumePdf ?? "/about#resume",
   },
 } as const;
 

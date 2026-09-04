@@ -67,9 +67,9 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href={resumeRequestHref} className="hover:text-foreground">
+                <a href={resumeRequestHref} className="hover:text-foreground">
                   Resume
-                </Link>
+                </a>
               </li>
             </ul>
           </nav>

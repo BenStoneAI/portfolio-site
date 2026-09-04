@@ -1,6 +1,5 @@
 /**
  * Public identity links. Only publish values that are known and verified.
- * LinkedIn and personal email stay omitted until Ben provides them — never invent.
  */
 
 export type PublicLinks = {
@@ -18,10 +17,10 @@ export type PublicLinks = {
 
 export const links: PublicLinks = {
   github: "https://github.com/BenStoneAI",
-  // email: TBD — do not invent
-  // linkedin: TBD — do not invent
-  // resumePdf: TBD until public/resume.pdf is added
+  email: "benstone2038@gmail.com",
+  linkedin: "https://www.linkedin.com/in/benjamin-stone-lehi/",
+  resumePdf: "/resume.pdf",
 };
 
-/** In-page target for resume / contact honesty copy when no PDF is published. */
-export const resumeRequestHref = "/about#resume";
+/** Prefer the published PDF; fall back to the About resume section. */
+export const resumeRequestHref = links.resumePdf ?? "/about#resume";

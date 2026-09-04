@@ -43,10 +43,13 @@ export default function AboutPage() {
 
         <div className="mt-10 flex flex-wrap gap-3">
           <a
-            href="#resume"
+            href={links.resumePdf ?? "#resume"}
+            {...(links.resumePdf
+              ? { target: "_blank", rel: "noopener noreferrer" }
+              : {})}
             className="rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
           >
-            Resume on request
+            {links.resumePdf ? "Download resume" : "Resume on request"}
           </a>
           <a
             href={links.github}
@@ -56,6 +59,16 @@ export default function AboutPage() {
           >
             GitHub
           </a>
+          {links.linkedin ? (
+            <a
+              href={links.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-md border border-border-strong px-4 py-2 text-sm font-medium transition-colors hover:bg-subtle"
+            >
+              LinkedIn
+            </a>
+          ) : null}
           {links.email ? (
             <a
               href={`mailto:${links.email}`}
@@ -76,7 +89,7 @@ export default function AboutPage() {
             {aboutCopy.resume.heading}
           </p>
           <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
-            Available on request
+            Download
           </h2>
           <p className="mt-4 text-[1.05rem] leading-relaxed text-foreground/90 text-pretty">
             {aboutCopy.resume.body}
